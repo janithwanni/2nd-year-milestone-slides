@@ -1,0 +1,187 @@
+---
+format:
+  revealjs:
+    pagetitle: "Neural Networks and Randomness"
+    footer: "https://janithwanni-phd-2nd-year.netlify.app/"
+    logo: imgs/slide-url-qr.png
+    theme: [default, janiths_theme.scss, confirmation_presentation.scss]
+    slide-number: true
+    smaller: true
+    multiplex: true
+    history: false
+engine: knitr
+---
+
+
+```{r}
+library(tidyverse)
+library(colorspace)
+library(reactable)
+library(reactablefmtr)
+library(htmltools)
+
+conflicted::conflicts_prefer(dplyr::filter)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 4,
+  fig.align = "center",
+  out.width = "100%",
+  code.line.numbers = FALSE,
+  fig.retina = 4,
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  cache = FALSE,
+  dev.args = list(pointsize = 11)
+)
+
+options(
+  digits = 2,
+  width = 60
+)
+
+theme_set(
+  theme_bw(base_size = 14) +
+    theme(
+      aspect.ratio = 1,
+      plot.background = element_rect(fill = 'transparent', colour = NA),
+      plot.title.position = "plot",
+      plot.title = element_text(size = 24),
+      panel.background = element_rect(fill = 'transparent', colour = NA),
+      legend.background = element_rect(fill = 'transparent', colour = NA),
+      legend.key = element_rect(fill = 'transparent', colour = NA)
+    )
+)
+
+two_dim_sin <- readr::read_csv(here::here("data/sine-rotated.csv")) |>
+  dplyr::rename(class = cl) |>
+  dplyr::mutate(class = factor(class), index = row_number())
+
+two_dim_poi <- c(
+  617, # B
+  722, # A
+  800, # B
+  684, # A
+  400, # A top left corner
+  795 # B bottom right corner
+)
+
+two_dim_poi_data <- two_dim_sin |>
+  filter(index %in% two_dim_poi) |>
+  mutate(label = match(index, two_dim_poi))
+
+twod_limes <- readRDS(here::here("data/twod_limes.rds"))
+twod_shaps <- readRDS(here::here("data/twod_shaps.rds"))
+twod_anchors <- readRDS(here::here("data/twod_anchors.rds"))
+twod_cfacts <- readRDS(here::here("data/twod_cfacts.rds"))
+```
+
+```{r}
+#| echo: false
+two_dim_base_plot <- two_dim_sin |>
+  ggplot(aes(x = x1, y = x2, color = class)) +
+  geom_point(alpha = 0.3) +
+  geom_point(data = two_dim_poi_data, size = 2.5, alpha = 1) +
+  geom_text(
+    data = two_dim_poi_data,
+    aes(label = label),
+    nudge_x = -0.05,
+    nudge_y = -0.05,
+    fontface = "bold",
+    color = "black"
+  ) +
+  scale_color_discrete_divergingx(palette = "Zissou 1")
+```
+
+```{=html}
+
+<div style="display: flex; flex-direction: row;">
+<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 1.5em; max-width: 30vw">
+    <img src="imgs/tree-stump.jpg" />
+    <span style="font-style: italic; font-size: 0.75rem;">A redwood tree stump, Janith Wanniarachchi 2025</span>
+  </div>
+  
+
+  <div>
+
+  <h2> Winning the Neural Network Lottery by Chance </h2>
+  <span style="display: flex; font-style: italic; font-size: 1.25rem"> How I spent an year trying to fit neural networks with the worse luck imaginable </span>
+
+  <br/>
+
+  <span class = "accent-color" style = "font-family: 'Barlow', sans-serif; font-weight: bold"> Janith Wanniarachchi </span>
+  
+  <br/>
+  
+  <span style = "font-style: italic; font-size: 1.5rem; display: block;"> janith.wanniarachchi@monash.edu </span>
+
+  <hr style = "width: 40%; opacity: 0.2; margin-left: 0"/>
+
+  <span style = "font-size: 1.5rem; display: inline-block"> Supervised by Prof. Dianne Cook, Dr. Kate Saunders, Dr. Patricia Menendez, Dr. Thiyanga Talagala </span>
+
+<br/>
+
+</div>
+
+</div>
+
+```
+
+# I used to think I could fit neural networks
+
+## So I was given a dataset to fit as follows
+
+_Image of the dataset should come here_
+
+## A quick refresher on how to fit neural networks
+
+```{=html}
+<div style="width:100%;">
+<iframe src="https://playground.tensorflow.org/" style="width:90%"></iframe>
+</div>
+```
+
+## Thank you! {.center}
+
+Have any suggestions or ideas? {{< fa comment >}}
+
+```{=html}
+<div class = "card-container">
+  <div class="card">
+    <div class="card-text">
+      <div class="portada">
+        <img src = "imgs/banner-image-hiroshige.png" />
+        <span style="font-size: 0.7rem; font-style: italic;"> The colour palette for these slides are inspired by the painting "Sailing Boats Returning to Yabase" by Utagawa Hiroshige, 1835 (MetBrewer R package) </span>
+      </div>
+      <div class="title-total"> 
+        <div class = "img-container">
+          <div class = "img-avatar">
+            <img src = "imgs/profile_picture.jpeg "/>
+          </div>
+        </div>
+        <h4 class="accent-color">Janith Wanniarachchi</h4>
+        <div class="desc">
+          <div>
+            <span> <i class="fa-regular fa-envelope fa-sm"></i> </span> 
+            <span class = "contact-detail"> janith.wanniarachchi@monash.edu </span>
+          </div>
+          <div>
+            <span> <i class="fa-brands fa-github-alt fa-sm"></i> </span>
+            <span class = "contact-detail"> @janithwanni </span>
+          </div>
+          <div>
+            <span> <i class = "fa-brands fa-linkedin"></i></span>
+            <span class = "contact-detail"> janith-wanniarachchi </span>
+          </div>
+          <div>
+            <span> <i class = "fa-solid fa-globe fa-sm"></i> </span>
+            <span class = "contact-detail"> janithwanni.netlify.app </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
