@@ -12,4 +12,4 @@ One slide for the third project
 
 Timeline for the entire phd
 
-
+Questions, should we try to polish up the rosella package, and should we try to deploy the application 

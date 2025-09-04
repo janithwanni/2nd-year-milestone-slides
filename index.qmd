@@ -128,19 +128,496 @@ two_dim_base_plot <- two_dim_sin |>
 
 ```
 
-# I used to think I could fit neural networks
+## Let's be honest here {.center}
 
-## So I was given a dataset to fit as follows
+. . . 
 
-_Image of the dataset should come here_
+Building a good model is *hard*
 
-## A quick refresher on how to fit neural networks
+. . . 
+
+Explaining how a good model works is even **harder**
+
+::: {.notes}
+All right I'll be real with you, i have a hot take that everyone knows but no one wanted to address. Let’s be honest here, building models are hard, we spend enough years in grad school struggling making those but theres a bigger problem here, explaining these models is even harder.
+:::
+
+##  {.center .what-if}
+
+. . . 
+
+<img src="imgs/black_box_model-2.png" style = "width: 20%"/>
+<br/>
+<span style = "font-style: italic; font-size: 1.2rem"> Exhibit A: The good model </span>
+
+. . . 
+
+<div> **What if** you could <br/> poke around and find out <br/> how this model works? </div>
+
+. . . 
+
+**Introducing**
+
+<div class = "accent-color"> **Explainable AI (XAI) methods!** </div>
+
+::: {.notes}
+I bring to the court, exhibit A, the black box model which is performing good at the moment and smiling proudly for performing well, (must be nice to be happy like that) but we don’t know how it is making it’s decisions. What if we could poke around and find out how this model works? 
+Well there’s a new field that’s being growing in pushing the boundaries of explaining black box models called explainable AI or XAI
+:::
+
+## XAI has a lot of facets
+
+XAI can help you look at 
+
+:::: {.columns}
+
+::: {.column width=50%}
+
+<p style = "text-align:center"> <img src="imgs/global_methods_2.png" style="width:90%"/> </p>
+
+How the model reacts to different features overall using <span class="accent-color"> Global Interpretability Methods </span>
+
+:::
+
+::: {.column width=50%}
+
+<p style = "text-align:center"> <img src="imgs/local_methods_2.png" style="width:90%"/> </p>
+
+How the model gives a prediction to one single instance using <span class="accent-color">Local Interpretability Methods </span>
+
+::: 
+
+::::
+
+::: {.notes}
+Much like us humans, XAI comes in different varieties, and the two main ones are global and local interpretability methods, since I’ll be talking about bushfires, let’s assume that we have this amazing model that can predict the probability of a bushfire given a future date and location and it’s scarily good. Global methods will tell us how let’s say the temperature affects the chances of bushfire, while local methods will be able to tell us which weather conditions it used to give the prediction for a specific location and time.
+:::
+
+## Explaining one prediction
+
+There are several key <span class = "accent-color"> local interpretability methods </span> that are related to each other in how they approach the problem
+
+1. LIME (Local Interpretable Model agnostic Explanations)
+2. SHAP (SHapley Additive exPlanations)
+2. Anchors
+3. Counterfactuals
+
+::: {.notes}
+From these two methods generally understanding on a local scale is more informative and there are several methods that are connected together called lime, counterfactuals and anchors.
+:::
+
+## But, 
+
+::: {.fragment .fade-in}
+**What if** instead of looking at the numerical values of these XAI methods 
+:::
+
+::: {.fragment .fade-in}
+we represented the numbers as a visual object within the data itself.
+:::
+
+## LIME
+
+:::: {.columns}
+::: {.column width=60%}
+
+LIME works by trying to find the simplest model within the local neighbourhood that is as similar as possible to the original black box model. Therefore, for a given observation, the LIME explanations are the model coefficients of the interpretable model (e.g. a Generalized Linear Model)
+
+:::
+::: {.column width=40%}
+```{r}
+#| label: fig-2dim-lime
+#| fig-width: 6
+#| fig-height: 6
+#| out-width: 4in
+#| out-height: 4in
+#| fig-align: "center"
+#| fig-cap: "Geometric representation of LIME in two dimensions"
+#| echo: false
+twod_lime_poi <- twod_limes |>
+  group_by(case) |>
+  select(
+    intercept = model_intercept,
+    feature,
+    feature_weight,
+    yhat = model_prediction
+  ) |>
+  pivot_wider(names_from = "feature", values_from = "feature_weight") |>
+  ungroup() |>
+  mutate(
+    m = -(x1 / x2),
+    case = sort(two_dim_poi),
+    chat = (yhat - intercept) / x2
+  ) |>
+  left_join(
+    two_dim_poi_data |> select(x1_data = x1, x2_data = x2, case = index, label)
+  ) |>
+  mutate(c = x2_data - m * x1_data, match = abs((chat + m * x1_data) - x2_data))
+
+two_dim_base_plot +
+  geom_segment(
+    data = tibble(
+      x1 = two_dim_poi_data$x1 - 0.1,
+      x1_end = two_dim_poi_data$x1 + 0.1,
+      y = twod_lime_poi$m * x1 + twod_lime_poi$chat,
+      y_end = twod_lime_poi$m * x1_end + twod_lime_poi$c,
+      label = factor(two_dim_poi_data$label)
+    ),
+    aes(x = x1, y = y, xend = x1_end, yend = y_end),
+    inherit.aes = FALSE,
+    show.legend = TRUE
+  )
+```
+:::
+::::
+
+
+## SHAP
+
+:::: {.columns}
+
+::: {.column width=60%}
+
+Similar to LIME, SHAP builds a linear model around the given observation with the features being mapped to a binary vector indicating whether the feature is included in the model or not.
+
+SHAP is based on Shapley values which distributes a reward among cooperative players in a game. In this context the players are the features of the model and the reward is the prediction. 
+
+The coefficients of the model are then given by Shapley values and can be considered as the contribution that the given feature has towards the prediction.
+
+:::
+::: {.column width=40%}
+```{r fig-2dim-shap}
+#| label: fig-2dim-shap
+#| fig-width: 6
+#| fig-height: 6
+#| out-width: 4in
+#| out-height: 4in
+#| fig-align: "center"
+#| fig-cap: "Geometric representation of SHAP in two dimensions."
+#| echo: false
+two_dim_shap_poi <- twod_shaps$S$A[two_dim_poi, ] |> as.data.frame()
+two_dim_base_plot +
+  geom_segment(
+    data = tibble(
+      x1 = two_dim_poi_data$x1,
+      x1_end = x1 + two_dim_shap_poi$x1,
+      y = two_dim_poi_data$x2,
+      y_end = y
+    ),
+    aes(x = x1, y = y, xend = x1_end, yend = y_end),
+    inherit.aes = FALSE,
+    arrow = arrow(length = unit(0.1, "cm")),
+    lineend = "round",
+    linejoin = "bevel",
+    show.legend = FALSE
+  ) +
+  geom_segment(
+    data = tibble(
+      x1 = two_dim_poi_data$x1,
+      x1_end = x1,
+      y = two_dim_poi_data$x2,
+      y_end = y + two_dim_shap_poi$x2
+    ),
+    aes(x = x1, y = y, xend = x1_end, yend = y_end),
+    inherit.aes = FALSE,
+    arrow = arrow(length = unit(0.1, "cm")),
+    lineend = "round",
+    linejoin = "bevel",
+    show.legend = FALSE
+  ) +
+  scale_color_discrete_divergingx(
+    palette = "Zissou 1"
+  )
+```
+:::
+::::
+
+## Counterfactuals
+
+:::: {.columns}
+::: {.column}
+
+A counterfactual explanation $\boldsymbol{x}_i^{(c)}$ for a given $\boldsymbol{x}_i$ and a desired outcome value $y_{i}^{(\exp)}$, is defined as an observation satisfying the following conditions:
+
+1. $y_{i}^{(\exp)} \approx f(\boldsymbol{x}_i^{(c)})$.
+2. $\boldsymbol{x}_i$ and $\boldsymbol{x}_i^{(c)}$ are close to each other in the data space.
+3. $\boldsymbol{x}_i^{(c)}$ differs from $\boldsymbol{x}_i$ only in a few components.
+4. $\boldsymbol{x}_i^{(c)}$ is a plausible data point according to the distribution of each dimension.
+:::
+::: {.column}
+```{r fig-2dim-cfacts}
+#| label: fig-2dim-cfacts
+#| echo: false
+#| fig-width: 6
+#| fig-height: 6
+#| out-width: 4in
+#| out-height: 4in
+#| fig-align: "center"
+#| fig-cap: "Geometric representation of Counterfactuals in two dimensions. Hollow diamond shapes represent the counterfactual observations for the observations in solid circles connected through a line."
+twod_cfact_poi <- two_dim_poi_data |>
+  cbind(twod_cfacts |> rename(x1c = x1, x2c = x2) |> select(x1c, x2c))
+
+two_dim_base_plot +
+  geom_segment(
+    data = twod_cfact_poi,
+    aes(x = x1, y = x2, xend = x1c, yend = x2c)
+  ) +
+  geom_point(
+    data = twod_cfact_poi |>
+      mutate(class = ifelse(two_dim_poi_data$class == "A", "B", "A")),
+    aes(x = x1c, y = x2c),
+    shape = 9,
+    size = 2.5,
+    alpha = 1
+  ) +
+  scale_color_discrete_divergingx(
+    palette = "Zissou 1"
+  )
+```
+:::
+::::
+
+## Anchors
+
+:::: {.columns}
+::: {.column}
+
+Anchors are defined as a rule or a set of predicates that satisfy the given instance and is a sufficient condition for $f(x_i)$ with high probability. A predicate is a logical condition that an observation may or may not satisfy.
+
+Finding an anchor for a given instance can be defined as the solution to the following optimization problem,
+
+$$
+\max_{\mathcal{A} \text{ s.t. } \text{Pr}(\text{Prec}(\mathcal{A}) \ge \tau) \ge 1 - \delta} \text{Coverage}(\mathcal{A})
+$$
+
+The target would then be to maximize the coverage while ensuring that the precision is above a tolerance level.
+
+:::
+::: {.column}
+```{r fig-2dim-anchors}
+#| label: fig-2dim-anchors
+#| echo: false
+#| fig-width: 6
+#| fig-height: 6
+#| out-width: 4in
+#| out-height: 4in
+#| fig-align: "center"
+#| fig-cap: "Geometric representation of Anchors in two dimensions"
+
+twod_anchors_poi <- twod_anchors |>
+  mutate(
+    x1 = case_when(
+      is.na(x1) & bound == "lower" ~ min(two_dim_sin$x1),
+      is.na(x1) & bound == "upper" ~ max(two_dim_sin$x1),
+      TRUE ~ x1
+    ),
+    x2 = case_when(
+      is.na(x2) & bound == "lower" ~ min(two_dim_sin$x2),
+      is.na(x2) & bound == "upper" ~ max(two_dim_sin$x2),
+      TRUE ~ x2
+    )
+  )
+
+two_dim_base_plot +
+  geom_rect(
+    data = cbind(
+      twod_anchors_poi |>
+        filter(bound == "lower") |>
+        rename(xl = x1, yl = x2) |>
+        select(xl, yl, id),
+      twod_anchors_poi |>
+        filter(bound == "upper") |>
+        rename(xu = x1, yu = x2) |>
+        select(xu, yu)
+    ) |>
+      mutate(label = two_dim_poi_data$label, class = two_dim_poi_data$class),
+    aes(xmin = xl, ymin = yl, xmax = xu, ymax = yu, color = factor(class)),
+    inherit.aes = FALSE,
+    fill = "transparent",
+    linetype = "dashed",
+    size = 0.75
+  ) +
+  scale_color_discrete_divergingx(
+    palette = "Zissou 1"
+  )
+```
+:::
+::::
+
+## Kultarr R package
 
 ```{=html}
-<div style="width:100%;">
-<iframe src="https://playground.tensorflow.org/" style="width:90%"></iframe>
+<div style="display:flex; flex-direction: column; justify-content: center; align-items:center"> 
+  <img src="imgs/kultarr-banner.jpg" style="width: 50%"/>
+  <span style="font-size: 0.7rem; font-style: italic;"> Kultarr (Antechinomys laniger), Image courtesy of Everett Beck (animaldiversity.org) </span>
 </div>
 ```
+
+:::: {.columns}
+::: {.column}
+The existing implementations of Anchors were quite hard to work with and were quite slow as it was using an existing Java package. 
+:::
+::: {.column}
+Kultarr is an R package that aims to provide an implementation of Anchors using a simpler algorithm and a complete set of orthogonal predicates. 
+
+Try the package out from [https://github.com/janithwanni/kultarr](https:://github.com/janithwanni/kultarr)
+:::
+::::
+
+## In two dimensions,
+
+<br/> 
+
+```{=html}
+<div style="display:flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; font-size: 2.5rem; font-weight: bold; gap: 2rem">
+  <div>
+    <span class = "fragment fade-right" data-fragment-index=1>
+      <span class = "accent-color">LIME</span> can be seen as
+    </span>
+    <span class = "fragment fade-left" data-fragment-index=2> 
+      <span class = "accent-light-color"> regression lines</span>
+    </span>
+  </div>
+  <div>
+    <span class="fragment fade-right" data-fragment-index=4>
+      <span class = "accent-color"> SHAP </span> can be seen as
+    </span>
+    <span class = "fragment fade-left" data-fragment-index=5> 
+      <span class = "accent-light-color"> force vectors</span>
+    </span>
+  </div>
+  <div>
+    <span class="fragment fade-right" data-fragment-index=6>
+      <span class = "accent-color"> Counterfactuals </span> can be seen as
+    </span>
+    <span class = "fragment fade-left" data-fragment-index=7> 
+      <span class = "accent-light-color"> connecting lines</span>
+    </span>
+  </div>
+  <div>
+    <span class="fragment fade-right" data-fragment-index=8>
+      <span class = "accent-color"> Anchors </span> can be seen as
+    </span>
+    <span class = "fragment fade-left" data-fragment-index=9> 
+      <span class = "accent-light-color"> boxes </span>
+    </span>
+  </div>
+</div>
+```
+
+
+# Timeline
+
+```{r}
+#| label: fig-timeline
+#| fig-cap: "Project timeline for the PhD"
+#| fig-width: 13
+#| fig-height: 5
+#| echo: false
+
+year_one <- tribble(
+  ~activity,
+  ~start_date,
+  ~end_date,
+  "Completing coursework",
+  1,
+  5,
+  "Completing coursework",
+  8,
+  12,
+  "Reproducing Anchors as the kultarr package",
+  1,
+  3,
+  "Working paper on the visualisation of anchors",
+  7,
+  8,
+  "Developing improvements to detourr",
+  8,
+  10,
+  "Developing methods to visualise XAI methods with detourr",
+  9,
+  12,
+  "Working paper on geometric representations of XAI",
+  11,
+  13
+) |>
+  mutate(wp = "Year one")
+
+# start from 13
+year_two <- tribble(
+  ~activity,
+  ~start_date,
+  ~end_date,
+  "Developing dataset generators for robustness testing of XAI",
+  1,
+  2,
+  "Developing dataset generators for robustness testing of XAI",
+  1,
+  2,
+  "Bundling XAI Explorer into an R package",
+  8,
+  12,
+  "Testing disagreements between SHAP and Counterfactuals",
+  1,
+  3,
+  "Testing effect of density on neural network model fit",
+  7,
+  8,
+  "Investigating the effect of the seed on the model",
+  1,
+  1,
+  "Building the POC tool",
+  1,
+  1
+) |>
+  mutate(
+    wp = "Year two",
+    start_date = start_date + 13,
+    end_date = end_date + 13
+  )
+
+year_three <- tribble(
+  ~activity,
+  ~start_date,
+  ~end_date,
+  "Preparing to submit the first year paper",
+  1,
+  2,
+  "Writing up paper for the second year project",
+  1,
+  3,
+  "Work on toy transformer models",
+  2,
+  6,
+  "Writing up paper on visualisation of circuits",
+  4,
+  6,
+  "Thesis writing",
+  6,
+  12
+) |>
+  mutate(
+    wp = "Year three",
+    start_date = start_date + 24,
+    end_date = end_date + 24
+  )
+
+
+prj_data <- bind_rows(
+  list(year_one, year_two, year_three)
+)
+
+ganttrify::ganttrify(
+  project = prj_data |> select(wp, activity, start_date, end_date),
+  project_start_date = "2023-07",
+  size_text_relative = 1.5,
+  month_breaks = 6,
+  colour_palette = wesanderson::wes_palette("Zissou1")[1]
+) +
+  labs(title = "PhD timeline")
+```
+
+
 
 ## Thank you! {.center}
 
