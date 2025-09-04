@@ -98,7 +98,7 @@ two_dim_base_plot <- two_dim_sin |>
 
 <div style="display: flex; flex-direction: row;">
 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 1.5em; max-width: 30vw">
-    <img src="imgs/tree-stump.jpg" />
+    <img src="imgs/tree-stump.JPG" />
     <span style="font-style: italic; font-size: 0.75rem;">A redwood tree stump, Janith Wanniarachchi 2025</span>
   </div>
   
@@ -634,7 +634,7 @@ Have any suggestions or ideas? {{< fa comment >}}
       <div class="title-total"> 
         <div class = "img-container">
           <div class = "img-avatar">
-            <img src = "imgs/profile_picture.jpeg "/>
+            <img src = "imgs/profile_picture.JPEG "/>
           </div>
         </div>
         <h4 class="accent-color">Janith Wanniarachchi</h4>
