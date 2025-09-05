@@ -29,6 +29,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-3cf8b5ad46747fd920cc0ab3b00529b5.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -122,6 +188,9 @@
       margin-right: 0; 
     }
   </style>
+  <script src="index_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="index_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="index_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -133,7 +202,7 @@
 
 <div style="display: flex; flex-direction: row;">
 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 1.5em; max-width: 30vw">
-    <img src="imgs/tree-stump.JPG">
+    <img src="imgs/tree-stump.jpg">
     <span style="font-style: italic; font-size: 0.75rem;">A redwood tree stump, Janith Wanniarachchi 2025</span>
   </div>
   
@@ -269,10 +338,11 @@
 <section id="but" class="slide level2">
 <h2>But,</h2>
 <div class="fragment fade-in">
-<p><strong>What if</strong> instead of looking at the numerical values of these XAI methods</p>
+<h3 id="what-if-instead-of-looking-at-the-numerical-values-of-these-xai-methods"><strong>What if</strong> instead of looking at the numerical values of these XAI methods</h3>
 </div>
+<p><br><br></p>
 <div class="fragment fade-in">
-<p>we represented the numbers as a visual object within the data itself.</p>
+<h3 id="we-represented-the-numbers-as-a-visual-object-within-the-data-itself.">we represented the numbers as a visual object within the data itself.</h3>
 </div>
 </section>
 <section id="lime" class="slide level2">
@@ -379,8 +449,7 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
 <section id="kultarr-r-package" class="slide level2">
 <h2>Kultarr R package</h2>
 <div style="display:flex; flex-direction: column; justify-content: center; align-items:center"> 
-  <img src="imgs/kultarr-banner.jpg" style="width: 50%">
-  <span style="font-size: 0.7rem; font-style: italic;"> Kultarr (Antechinomys laniger), Image courtesy of Everett Beck (animaldiversity.org) </span>
+  <img src="imgs/kultarr.svg" style="width: 50%">
 </div>
 <div class="columns">
 <div class="column">
@@ -428,12 +497,336 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
   </div>
 </div>
 </section>
+<section id="extending-detourr" class="slide level2">
+<h2>Extending detourr</h2>
+<div class="columns">
+<div class="column">
+<p><img data-src="imgs/detourr_funcs.gif"></p>
+</div><div class="column">
+<ul>
+<li>Clicking on points in the detourr widget now returns the identifier.</li>
+<li>A proxy was created to communicate with an existing rendered detourr widget.</li>
+<li>Added support for adding points and edges connecting new points.</li>
+<li>Options to customize aesthetics of points and edges.</li>
+<li>Existing points can be highlighted or enlarged.</li>
+</ul>
+</div></div>
+</section>
+<section id="xai-explorer" class="slide level2 center">
+<h2>XAI explorer</h2>
+<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+<p><img src="imgs/app_demo_2.gif"></p>
+</div>
+</section>
+<section id="rosella-r-package" class="slide level2">
+<h2>Rosella R package</h2>
+<div style="display:flex; flex-direction: column; justify-content: center; align-items:center"> 
+  <img src="imgs/rosella.svg" style="width: 50%">
+</div>
+<div class="columns">
+<div class="column">
+<p>The current status of the XAI explorer was bundled into an R package to ensure that anyone with compute can run the Shiny app on their own servers.</p>
+</div><div class="column">
+<p>rosella is an R package that allows you to run the XAI explorer locally on your laptop. It’s still under development in terms of allowing users to generate XAI explanations for their own datasets.</p>
+<p>Try the package out from <a href="https:://github.com/janithwanni/rosella">https://github.com/janithwanni/rosella</a></p>
+</div></div>
+</section>
+<section>
+<section id="lets-join-the-cult" class="title-slide slide level1 center">
+<h1>Let’s join the cult</h1>
+
+</section>
+<section id="being-agnostic-is-fun-and-all-but" class="slide level2">
+<h2>Being agnostic is fun and all, but …</h2>
+<p>How long has it been since you last spoke to an LLM? How many of you in this room are chatting with an LLM right now?</p>
+<ul>
+<li class="fragment">Deep Learning and Large Language Models have taken over most of the asepcts of our life.</li>
+<li class="fragment">Model Agnostic XAI methods can poke and prod at the model but,</li>
+<li class="fragment">Unless we crack open the model wide we won’t be able to tell what’s happening in these models.</li>
+</ul>
+</section></section>
+<section>
+<section id="so-lets-fit-a-neural-network" class="title-slide slide level1 center">
+<h1>So let’s fit a neural network</h1>
+
+</section>
+<section id="simple-stuff-first" class="slide level2">
+<h2>Simple stuff first,</h2>
+<p>Let’s take a look at the following dataset</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">ggplot</span>() <span class="co">#TODO: Fill with the dataset plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section></section>
+<section>
+<section id="quick-refresher-on-how-neural-networks-work" class="title-slide slide level1 center">
+<h1>Quick refresher on how neural networks work</h1>
+
+</section>
+<section id="all-right-for-our-dataset" class="slide level2">
+<h2>All right for our dataset,</h2>
+<p>Let’s get a quick poll on what our hyperparameters should be</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Known and fixed hyperparameters (for the plot)</p>
+<ul>
+<li>Number of epochs: 100</li>
+<li>Batch size: 71</li>
+<li>Loss function: Binary Cross Entropy loss</li>
+<li>Optimizer: Adam</li>
+<li>Training set size: 5,000</li>
+<li>Testing set size: 5,000</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p>What shall we pick as the number of neurons in a single layer?</p>
+<ul>
+<li>4</li>
+<li>5</li>
+<li>8</li>
+<li>10</li>
+</ul>
+<p>Join the live poll below to share your votes</p>
+</div></div>
+</section>
+<section id="so-based-on-your-results" class="slide level2">
+<h2>So based on your results,</h2>
+<p>This is the result for a single layer neural network with,</p>
+<div class="columns">
+<div class="column">
+<p>Use simple javascript to pick up the plot with the lowest f1 and accuracy and show them here</p>
+</div><div class="column">
+
+</div><div class="column">
+
+</div><div class="column">
+
+</div></div>
+<div class="fragment fade-in">
+<p>Are we sure though?</p>
+<button> Check again </button>
+</div>
+</section></section>
+<section>
+<section id="any-guesses-on-what-exactly-happened-here" class="title-slide slide level1 center">
+<h1>Any guesses on what exactly happened here?</h1>
+
+</section>
+<section id="for-an-entire-year-i-used-the-wrong-seed" class="slide level2">
+<h2>For an entire year I used the wrong seed</h2>
+<p>The random seed has an effect on how neural networks are being built</p>
+<p>It can be due to primarily the initial weights used in the training, which has been used heavily in,</p>
+<ul>
+<li>The lotter ticket hypothesis</li>
+<li>Meta Learning</li>
+<li>And many more cases,</li>
+</ul>
+</section></section>
+<section>
+<section id="cool-story-bro-so-what" class="title-slide slide level1 center">
+<h1>Cool story bro, so what?</h1>
+
+</section>
+<section id="smaller-models-for-small-datasets" class="slide level2">
+<h2>Smaller models for small datasets</h2>
+<p>I could have chucked a 20 neuron two hidden layer neural network with 500 epochs,</p>
+<p>But why?</p>
+<p>Look at this dataset</p>
+<p>Does this decision boundary need more parameters than there are bends in the decision boundary?</p>
+</section>
+<section id="fixing-things-before-it-starts" class="slide level2">
+<h2>Fixing things before it starts</h2>
+<p>In a majority of deep learning education material very rarely is the effect of the random seed discussed.</p>
+<p>That is why I built a tool for data science educators to educate students by trying out multiple model variants and seeing the difference</p>
+<p>And today you get to try that out as well</p>
+<p>As the seocnd batch of students to experience the app</p>
+</section>
+<section id="introducing" class="slide level2">
+<h2>Introducing <name to="" be="" decided=""></name></h2>
+<p>Visit <a href="http://random-nn-playground.janith.com">random-nn-playground.janith.com</a></p>
+</section>
+<section id="the-architecture-behind-the-app" class="slide level2">
+<h2>The architecture behind the app</h2>
+<div class="cell" data-reveal="true" data-fig-width="6" data-layout-align="default">
+<div class="cell-output-display">
+<div id="fig-architecture" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-architecture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-architecture">graph TB
+    
+    %% Main Application Layer
+    subgraph "Main Application (R/Shiny)"
+        %% Frontend Layer
+        subgraph "Frontend Layer"
+            UI[Fomantic UI Components]
+            Squiggler[Squiggler Tool&lt;br/&gt;Svelte → JS/CSS]
+        end
+
+        Shiny[Shiny Web Framework&lt;br/&gt;Rhino for&lt;br/&gt;Codebase Management]
+        
+        %% Visualization Components
+        subgraph "Visualization Libraries"
+            GGPlot[ggplot2&lt;br/&gt;Static Plots]
+            Beeswarm[ggbeeswarm&lt;br/&gt;Plot Geometry]
+            Ggiraph[ggiraph&lt;br/&gt;Interactivity]
+            Gifski[gifski&lt;br/&gt;GIF Animations&lt;br/&gt;Rust-powered]
+        end
+
+        %% Backend Processing Layer
+        subgraph "Backend Processing"
+            Python[Python Background Tasks&lt;br/&gt;Model Fitting&lt;br/&gt;with PyTorch&lt;br/&gt;]
+            Parquet[Parquet Files&lt;br/&gt;for Data Transfer]
+        end
+
+    end
+    
+    
+    %% Data Layer
+    %% subgraph "Data Storage"
+    %% end
+    
+    %% Connections
+    UI --&gt; Shiny
+    Squiggler --&gt; Shiny
+    
+    %% Visualization connections
+    Shiny --&gt; GGPlot
+    Shiny --&gt; Beeswarm
+    Shiny --&gt; Ggiraph
+    Shiny --&gt; Gifski
+    
+    %% Interactive plot creation
+    Beeswarm --&gt; Ggiraph
+    
+    %% Backend connections
+    Shiny -.-&gt;|Background Task| Python
+    Python --&gt; Parquet
+    Shiny --&gt; Parquet
+    
+    %% Styling
+    classDef frontend fill:#e1f5fe
+    classDef rshiny fill:#f3e5f5
+    classDef backend fill:#fff3e0
+    classDef data fill:#e8f5e8
+    
+    class UI,Squiggler frontend
+    class Shiny,GGPlot,Beeswarm,Ggiraph,Gifski rshiny
+    class Python,PyTorch backend
+    class Parquet data
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-architecture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: The architecture of the pedagogical tool
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="the-methodology-behind-the-app" class="slide level2">
+<h2>The methodology behind the app</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A["Start: Input Decision Boundary Function f&lt;br/&gt;Seed Range [1, 99999]&lt;br/&gt;Neuron Sizes N"] --&gt; B[Phase 1: Dataset Generation]
+    
+    B --&gt; C[Set Consistent Seed for Reproducibility]
+    C --&gt; D["Generate 10,000 Samples&lt;br/&gt;Uniformly from [-10, 10] × [-10, 10]"]
+    D --&gt; E["For Each Point (x₁, x₂)"]
+    E --&gt; F["Assign Label y = f(x₁, x₂)&lt;br/&gt;Above/Below Boundary"]
+    F --&gt; G[Create Training and Testing Datasets]
+    
+    G --&gt; H[Phase 2: Parallel Training Process]
+    
+    H --&gt; I[For Each Neuron Size n ∈ N]
+    I --&gt; J["Select Random Seed s ∈ [1, 99999]"]
+    J --&gt; K["For Each Seed-Neuron Combination (s, n)"]
+    
+    K --&gt; L["Initialize Single-Layer Neural Network:&lt;br/&gt;• Input: 2 nodes&lt;br/&gt;• Hidden: n neurons (ReLU)&lt;br/&gt;• Output: 1 node (Sigmoid)"]
+    
+    L --&gt; M[Set Network Weights Using Seed s]
+    M --&gt; N["Configure Training Parameters:&lt;br/&gt;• Batch Size: b = ⌊√|D|⌋ = 71&lt;br/&gt;• Adam Optimizer: lr=0.01&lt;br/&gt;• Loss: Binary Cross Entropy"]
+    
+    N --&gt; O[Training Loop: 500 Epochs]
+    O --&gt; P[Shuffle Training Data Using Seed s]
+    P --&gt; Q[For Each Batch B of Size b]
+    
+    Q --&gt; R["Forward Pass:&lt;br/&gt;ŷ = σ(W₂ · ReLU(W₁ · X + b₁) + b₂)"]
+    R --&gt; S[Compute BCE Loss]
+    S --&gt; T[Backward Pass &amp; Adam Update]
+    
+    T --&gt; U{More Batches?}
+    U --&gt;|Yes| Q
+    U --&gt;|No| V{More Epochs?}
+    V --&gt;|Yes| P
+    V --&gt;|No| W{More Seed-Neuron&lt;br/&gt;Combinations?}
+    
+    W --&gt;|Yes| K
+    W --&gt;|No| X{More Neuron&lt;br/&gt;Sizes?}
+    X --&gt;|Yes| I
+    X --&gt;|No| Y[Phase 3: Model Evaluation]
+    
+    Y --&gt; Z[For Each Trained Model M]
+    Z --&gt; AA[Evaluate on Testing Dataset:&lt;br/&gt;• Compute Predictions ŷₜₑₛₜ&lt;br/&gt;• Calculate F1-Score&lt;br/&gt;• Calculate Accuracy]
+    
+    AA --&gt; BB[Create Decision Boundary Visualization:&lt;br/&gt;• Generate 100×100 Grid&lt;br/&gt;• Apply Model to Grid&lt;br/&gt;• Store Boundary Predictions]
+    
+    BB --&gt; CC{More Models?}
+    CC --&gt;|Yes| Z
+    CC --&gt;|No| DD[Return: Models, Metrics,&lt;br/&gt;Decision Boundaries]
+    
+    DD --&gt; EE[End]
+    
+    style B fill:#e1f5fe
+    style H fill:#f3e5f5
+    style Y fill:#e8f5e8
+    style A fill:#fff3e0
+    style EE fill:#fff3e0
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="where-to-from-here" class="title-slide slide level1 center">
+<h1>Where to from here?</h1>
+
+</section>
+<section id="attention-is-all-you-need-but-did-we-need-that-much-attention" class="slide level2 smaller">
+<h2>Attention is all you need, but did we need that much attention?</h2>
+<ul>
+<li>Modern Transformers have billions of parameters, holding vast world knowledge.
+<ul>
+<li><strong>Motivating Question:</strong> Can we study simpler models to understand the fundamental computational circuits underlying reasoning and knowledge representation?</li>
+</ul></li>
+<li>Recent research suggests even small models can develop meaningful “circuits, interconnected features collaborating to perform specific tasks.</li>
+<li><span class="citation" data-cites="nanda2023progress">[@nanda2023progress]</span> demonstrated algorithmic circuits emerging in a 1-layer transformer trained on modular arithmetic.
+<ul>
+<li><span class="citation" data-cites="elhage2022toy">[@elhage2022toy]</span> showed how Sparse Autoencoders (SAEs) disentangle overlapping concepts, leading to more interpretable representations.</li>
+</ul></li>
+<li>We will study a 1-layer transformer trained on modular arithmetic.
+<ul>
+<li><strong>Key Innovation:</strong> Integrating a Sparse Autoencoder (SAE) <em>after</em> the multi-layer perceptron output.</li>
+<li>SAE Reconstruction: Dense input reconstructed using sparse latent features.</li>
+<li><strong>Gap to Fill:</strong> Lack of simultaneous visualization of training dynamics <em>and</em> circuit structure – particularly crucial in small, interpretable models.</li>
+<li>Create an interactive visualization of emerging transformer circuits using SAEs.</li>
+<li>Goal: Understand how even simple transformers develop reasoning structures.</li>
+<li>Step towards understanding larger, more complex models.</li>
+</ul></li>
+</ul>
+</section></section>
 <section>
 <section id="timeline" class="title-slide slide level1 center">
 <h1>Timeline</h1>
 
 <img data-src="index_files/figure-revealjs/fig-timeline-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%" id="fig-timeline"><p class="caption">
-Figure&nbsp;5: Project timeline for the PhD
+Figure&nbsp;6: Project timeline for the PhD
 </p></section>
 <section id="thank-you" class="slide level2 center">
 <h2>Thank you!</h2>
@@ -448,7 +841,7 @@ Figure&nbsp;5: Project timeline for the PhD
       <div class="title-total"> 
         <div class="img-container">
           <div class="img-avatar">
-            <img src="imgs/profile_picture.JPEG ">
+            <img src="imgs/profile_picture.jpeg ">
           </div>
         </div>
         <h4 class="accent-color">Janith Wanniarachchi</h4>

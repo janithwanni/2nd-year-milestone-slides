@@ -98,7 +98,7 @@ two_dim_base_plot <- two_dim_sin |>
 
 <div style="display: flex; flex-direction: row;">
 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 1.5em; max-width: 30vw">
-    <img src="imgs/tree-stump.JPG" />
+    <img src="imgs/tree-stump.jpg" />
     <span style="font-style: italic; font-size: 0.75rem;">A redwood tree stump, Janith Wanniarachchi 2025</span>
   </div>
   
@@ -209,11 +209,13 @@ From these two methods generally understanding on a local scale is more informat
 ## But, 
 
 ::: {.fragment .fade-in}
-**What if** instead of looking at the numerical values of these XAI methods 
+### **What if** instead of looking at the numerical values of these XAI methods 
 :::
 
+<br/><br/>
+
 ::: {.fragment .fade-in}
-we represented the numbers as a visual object within the data itself.
+### we represented the numbers as a visual object within the data itself.
 :::
 
 ## LIME
@@ -448,8 +450,7 @@ two_dim_base_plot +
 
 ```{=html}
 <div style="display:flex; flex-direction: column; justify-content: center; align-items:center"> 
-  <img src="imgs/kultarr-banner.jpg" style="width: 50%"/>
-  <span style="font-size: 0.7rem; font-style: italic;"> Kultarr (Antechinomys laniger), Image courtesy of Everett Beck (animaldiversity.org) </span>
+  <img src="imgs/kultarr.svg" style="width: 50%"/>
 </div>
 ```
 
@@ -505,6 +506,317 @@ Try the package out from [https://github.com/janithwanni/kultarr](https:://githu
 </div>
 ```
 
+## Extending detourr
+
+:::: {.columns}
+::: {.column}
+![](imgs/detourr_funcs.gif)
+:::
+::: {.column}
+
+* Clicking on points in the detourr widget now returns the identifier.
+* A proxy was created to communicate with an existing rendered detourr widget.
+* Added support for adding points and edges connecting new points.
+* Options to customize aesthetics of points and edges.
+* Existing points can be highlighted or enlarged.
+
+:::
+::::
+
+## XAI explorer {.center}
+
+<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+<img src="imgs/app_demo_2.gif" />
+
+</div>
+
+## Rosella R package
+
+```{=html}
+<div style="display:flex; flex-direction: column; justify-content: center; align-items:center"> 
+  <img src="imgs/rosella.svg" style="width: 50%"/>
+</div>
+```
+
+:::: {.columns}
+::: {.column}
+The current status of the XAI explorer was bundled into an R package to ensure that anyone with compute can run the Shiny app on their own servers.
+:::
+::: {.column}
+rosella is an R package that allows you to run the XAI explorer locally on your laptop. It's still under development in terms of allowing users to generate XAI explanations for their own datasets. 
+
+Try the package out from [https://github.com/janithwanni/rosella](https:://github.com/janithwanni/rosella)
+:::
+::::
+
+# Let's join the cult  
+
+## Being agnostic is fun and all, but ...
+
+How long has it been since you last spoke to an LLM? How many of you in this room are chatting with an LLM right now?
+
+:::{.incremental}
+- Deep Learning and Large Language Models have taken over most of the asepcts of our life. 
+- Model Agnostic XAI methods can poke and prod at the model but,
+- Unless we crack open the model wide we won't be able to tell what's happening in these models.
+:::
+
+# So let's fit a neural network
+
+## Simple stuff first, 
+
+Let's take a look at the following dataset
+
+```{r}
+ggplot() #TODO: Fill with the dataset plot
+```
+
+# Quick refresher on how neural networks work
+
+## All right for our dataset, 
+
+Let's get a quick poll on what our hyperparameters should be 
+
+::::{.columns}
+:::{.column width=50%}
+
+Known and fixed hyperparameters (for the plot)
+
+- Number of epochs: 100
+- Batch size: 71
+- Loss function: Binary Cross Entropy loss
+- Optimizer: Adam
+- Training set size: 5,000
+- Testing set size: 5,000
+
+:::
+:::{.column width=50%}
+What shall we pick as the number of neurons in a single layer? 
+
+- 4
+- 5
+- 8
+- 10
+
+Join the live poll below to share your votes
+:::
+::::
+
+## So based on your results,
+
+This is the result for a single layer neural network with, 
+
+::::{.columns}
+:::{.column}
+
+Use simple javascript to pick up the plot with the lowest f1 and accuracy and show them here
+
+:::
+:::{.column}
+:::
+:::{.column}
+:::
+:::{.column}
+:::
+::::
+
+:::{.fragment .fade-in}
+Are we sure though?
+
+```{=html}
+<button> Check again </button>
+```
+:::
+
+# Any guesses on what exactly happened here?
+
+## For an entire year I used the wrong seed
+
+The random seed has an effect on how neural networks are being built
+
+It can be due to primarily the initial weights used in the training, which has been used heavily in,
+
+- The lotter ticket hypothesis
+- Meta Learning 
+- And many more cases,
+
+# Cool story bro, so what?
+
+## Smaller models for small datasets 
+
+I could have chucked a 20 neuron two hidden layer neural network with 500 epochs, 
+
+But why? 
+
+Look at this dataset
+
+Does this decision boundary need more parameters than there are bends in the decision boundary?
+
+## Fixing things before it starts
+
+In a majority of deep learning education material very rarely is the effect of the random seed discussed.
+
+That is why I built a tool for data science educators to educate students by trying out multiple model variants and seeing the difference
+
+And today you get to try that out as well
+
+As the seocnd batch of students to experience the app
+
+## Introducing <Name to be decided>
+
+Visit [random-nn-playground.janith.com](http://random-nn-playground.janith.com)
+
+## The architecture behind the app
+
+```{mermaid}
+%%| label: fig-architecture
+%%| fig-cap: |
+%%|   The architecture of the pedagogical tool
+%%| fig-width: 6
+
+graph TB
+    
+    %% Main Application Layer
+    subgraph "Main Application (R/Shiny)"
+        %% Frontend Layer
+        subgraph "Frontend Layer"
+            UI[Fomantic UI Components]
+            Squiggler[Squiggler Tool<br/>Svelte → JS/CSS]
+        end
+
+        Shiny[Shiny Web Framework<br/>Rhino for<br/>Codebase Management]
+        
+        %% Visualization Components
+        subgraph "Visualization Libraries"
+            GGPlot[ggplot2<br/>Static Plots]
+            Beeswarm[ggbeeswarm<br/>Plot Geometry]
+            Ggiraph[ggiraph<br/>Interactivity]
+            Gifski[gifski<br/>GIF Animations<br/>Rust-powered]
+        end
+
+        %% Backend Processing Layer
+        subgraph "Backend Processing"
+            Python[Python Background Tasks<br/>Model Fitting<br/>with PyTorch<br/>]
+            Parquet[Parquet Files<br/>for Data Transfer]
+        end
+
+    end
+    
+    
+    %% Data Layer
+    %% subgraph "Data Storage"
+    %% end
+    
+    %% Connections
+    UI --> Shiny
+    Squiggler --> Shiny
+    
+    %% Visualization connections
+    Shiny --> GGPlot
+    Shiny --> Beeswarm
+    Shiny --> Ggiraph
+    Shiny --> Gifski
+    
+    %% Interactive plot creation
+    Beeswarm --> Ggiraph
+    
+    %% Backend connections
+    Shiny -.->|Background Task| Python
+    Python --> Parquet
+    Shiny --> Parquet
+    
+    %% Styling
+    classDef frontend fill:#e1f5fe
+    classDef rshiny fill:#f3e5f5
+    classDef backend fill:#fff3e0
+    classDef data fill:#e8f5e8
+    
+    class UI,Squiggler frontend
+    class Shiny,GGPlot,Beeswarm,Ggiraph,Gifski rshiny
+    class Python,PyTorch backend
+    class Parquet data
+```
+
+
+## The methodology behind the app
+
+```{mermaid}
+flowchart LR
+    A["Start: Input Decision Boundary Function f<br/>Seed Range [1, 99999]<br/>Neuron Sizes N"] --> B[Phase 1: Dataset Generation]
+    
+    B --> C[Set Consistent Seed for Reproducibility]
+    C --> D["Generate 10,000 Samples<br/>Uniformly from [-10, 10] × [-10, 10]"]
+    D --> E["For Each Point (x₁, x₂)"]
+    E --> F["Assign Label y = f(x₁, x₂)<br/>Above/Below Boundary"]
+    F --> G[Create Training and Testing Datasets]
+    
+    G --> H[Phase 2: Parallel Training Process]
+    
+    H --> I[For Each Neuron Size n ∈ N]
+    I --> J["Select Random Seed s ∈ [1, 99999]"]
+    J --> K["For Each Seed-Neuron Combination (s, n)"]
+    
+    K --> L["Initialize Single-Layer Neural Network:<br/>• Input: 2 nodes<br/>• Hidden: n neurons (ReLU)<br/>• Output: 1 node (Sigmoid)"]
+    
+    L --> M[Set Network Weights Using Seed s]
+    M --> N["Configure Training Parameters:<br/>• Batch Size: b = ⌊√|D|⌋ = 71<br/>• Adam Optimizer: lr=0.01<br/>• Loss: Binary Cross Entropy"]
+    
+    N --> O[Training Loop: 500 Epochs]
+    O --> P[Shuffle Training Data Using Seed s]
+    P --> Q[For Each Batch B of Size b]
+    
+    Q --> R["Forward Pass:<br/>ŷ = σ(W₂ · ReLU(W₁ · X + b₁) + b₂)"]
+    R --> S[Compute BCE Loss]
+    S --> T[Backward Pass & Adam Update]
+    
+    T --> U{More Batches?}
+    U -->|Yes| Q
+    U -->|No| V{More Epochs?}
+    V -->|Yes| P
+    V -->|No| W{More Seed-Neuron<br/>Combinations?}
+    
+    W -->|Yes| K
+    W -->|No| X{More Neuron<br/>Sizes?}
+    X -->|Yes| I
+    X -->|No| Y[Phase 3: Model Evaluation]
+    
+    Y --> Z[For Each Trained Model M]
+    Z --> AA[Evaluate on Testing Dataset:<br/>• Compute Predictions ŷₜₑₛₜ<br/>• Calculate F1-Score<br/>• Calculate Accuracy]
+    
+    AA --> BB[Create Decision Boundary Visualization:<br/>• Generate 100×100 Grid<br/>• Apply Model to Grid<br/>• Store Boundary Predictions]
+    
+    BB --> CC{More Models?}
+    CC -->|Yes| Z
+    CC -->|No| DD[Return: Models, Metrics,<br/>Decision Boundaries]
+    
+    DD --> EE[End]
+    
+    style B fill:#e1f5fe
+    style H fill:#f3e5f5
+    style Y fill:#e8f5e8
+    style A fill:#fff3e0
+    style EE fill:#fff3e0
+```
+
+# Where to from here? 
+
+## Attention is all you need, but did we need that much attention?{.smaller}
+
+*   Modern Transformers have billions of parameters, holding vast world knowledge.
+    *   **Motivating Question:** Can we study simpler models to understand the fundamental computational circuits underlying reasoning 
+and knowledge representation?
+*   Recent research suggests even small models can develop meaningful "circuits, interconnected features collaborating to perform specific tasks.
+*   [@nanda2023progress] demonstrated algorithmic circuits emerging in a 1-layer transformer trained on modular arithmetic.
+    *   [@elhage2022toy] showed how Sparse Autoencoders (SAEs) disentangle overlapping concepts, leading to more interpretable 
+representations.
+*   We will study a 1-layer transformer trained on modular arithmetic.
+    *   **Key Innovation:**  Integrating a Sparse Autoencoder (SAE) *after* the multi-layer perceptron output.
+    *   SAE Reconstruction: Dense input reconstructed using sparse latent features.
+    *   **Gap to Fill:** Lack of simultaneous visualization of training dynamics *and* circuit structure – particularly crucial in 
+small, interpretable models.
+    *   Create an interactive visualization of emerging transformer circuits using SAEs.
+      *   Goal:  Understand how even simple transformers develop reasoning structures.
+      *   Step towards understanding larger, more complex models.
 
 # Timeline
 
@@ -634,7 +946,7 @@ Have any suggestions or ideas? {{< fa comment >}}
       <div class="title-total"> 
         <div class = "img-container">
           <div class = "img-avatar">
-            <img src = "imgs/profile_picture.JPEG "/>
+            <img src = "imgs/profile_picture.jpeg "/>
           </div>
         </div>
         <h4 class="accent-color">Janith Wanniarachchi</h4>
