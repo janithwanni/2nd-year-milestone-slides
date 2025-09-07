@@ -2,7 +2,7 @@
 format:
   revealjs:
     pagetitle: "Neural Networks and Randomness"
-    footer: "https://janithwanni-phd-2nd-year.netlify.app/"
+    footer: "https://2nd-year-milestone-slides.pages.dev/"
     logo: imgs/slide-url-qr.png
     theme: [default, janiths_theme.scss, confirmation_presentation.scss]
     slide-number: true
@@ -19,6 +19,8 @@ library(colorspace)
 library(reactable)
 library(reactablefmtr)
 library(htmltools)
+library(here)
+library(patchwork)
 
 conflicted::conflicts_prefer(dplyr::filter)
 
@@ -206,16 +208,20 @@ There are several key <span class = "accent-color"> local interpretability metho
 From these two methods generally understanding on a local scale is more informative and there are several methods that are connected together called lime, counterfactuals and anchors.
 :::
 
-## But, 
+## But what if, {.center}
 
 ::: {.fragment .fade-in}
-### **What if** instead of looking at the numerical values of these XAI methods 
+
+instead of looking at the numerical values of these XAI methods
+
 :::
 
 <br/><br/>
 
 ::: {.fragment .fade-in}
-### we represented the numbers as a visual object within the data itself.
+
+we represented the numbers as a visual object within the data itself.
+
 :::
 
 ## LIME
@@ -449,8 +455,9 @@ two_dim_base_plot +
 ## Kultarr R package
 
 ```{=html}
-<div style="display:flex; flex-direction: column; justify-content: center; align-items:center"> 
-  <img src="imgs/kultarr.svg" style="width: 50%"/>
+<div style="display:flex; flex-direction: row; justify-content: space-around; align-items:center"> 
+  <img src="imgs/kultarr-banner.jpg" style="width: 50%"/>
+  <img src="imgs/kultarr.svg"/>
 </div>
 ```
 
@@ -506,7 +513,7 @@ Try the package out from [https://github.com/janithwanni/kultarr](https:://githu
 </div>
 ```
 
-## Extending detourr
+## Further updates to detourr 
 
 :::: {.columns}
 ::: {.column}
@@ -523,7 +530,7 @@ Try the package out from [https://github.com/janithwanni/kultarr](https:://githu
 :::
 ::::
 
-## XAI explorer {.center}
+## Putting it all together {.center}
 
 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
 <img src="imgs/app_demo_2.gif" />
@@ -533,8 +540,9 @@ Try the package out from [https://github.com/janithwanni/kultarr](https:://githu
 ## Rosella R package
 
 ```{=html}
-<div style="display:flex; flex-direction: column; justify-content: center; align-items:center"> 
-  <img src="imgs/rosella.svg" style="width: 50%"/>
+<div style="display:flex; flex-direction: row; justify-content: space-around; align-items:center"> 
+<img src="imgs/rosella-banner.jpg" style="width:40%" />
+  <img src="imgs/rosella.svg" />
 </div>
 ```
 
@@ -549,9 +557,9 @@ Try the package out from [https://github.com/janithwanni/rosella](https:://githu
 :::
 ::::
 
-# Let's join the cult  
+# Let's join a cult  
 
-## Being agnostic is fun and all, but ...
+## Being agnostic is fun and all, but
 
 How long has it been since you last spoke to an LLM? How many of you in this room are chatting with an LLM right now?
 
@@ -565,10 +573,34 @@ How long has it been since you last spoke to an LLM? How many of you in this roo
 
 ## Simple stuff first, 
 
-Let's take a look at the following dataset
+Let's take a look at the following training dataset
 
 ```{r}
-ggplot() #TODO: Fill with the dataset plot
+#| echo: false
+library(arrow)
+dataset <- arrow::read_parquet(
+  "data/train_df_e8c249741a6216445c1edd117488ef326fa93d20.parquet.lz4"
+)
+
+original_bound <- jsonlite::fromJSON(
+  "[[-10,-10],[-8.875,-3.75],[-4.21875,-3.75],[-0.3125,1.25],[5,-5],[10,10]]"
+) |>
+  as.data.frame() |>
+  setNames(c("x", "y"))
+
+ggplot(dataset, aes(x = x, y = y, color = factor(class))) +
+  geom_point(size = 0.5) +
+  geom_line(
+    data = original_bound,
+    aes(x = x, y = y),
+    linewidth = 2,
+    alpha = 0.5,
+    color = "white",
+    inherit.aes = FALSE
+  ) +
+  coord_equal() +
+  theme_minimal() +
+  labs(color = "Class", x = "x", y = "y")
 ```
 
 # Quick refresher on how neural networks work
@@ -578,7 +610,7 @@ ggplot() #TODO: Fill with the dataset plot
 Let's get a quick poll on what our hyperparameters should be 
 
 ::::{.columns}
-:::{.column width=50%}
+:::{.column .fragment fragment-index=1 width=50%}
 
 Known and fixed hyperparameters (for the plot)
 
@@ -590,7 +622,7 @@ Known and fixed hyperparameters (for the plot)
 - Testing set size: 5,000
 
 :::
-:::{.column width=50%}
+:::{.column .fragment fragment-index=2 width=50%}
 What shall we pick as the number of neurons in a single layer? 
 
 - 4
@@ -598,35 +630,146 @@ What shall we pick as the number of neurons in a single layer?
 - 8
 - 10
 
-Join the live poll below to share your votes
+_Live poll to be added here_
+
 :::
 ::::
 
-## So based on your results,
+## So based on your results, {.smaller}
 
 This is the result for a single layer neural network with, 
 
+```{r}
+#| echo: false
+
+plot_nn_fit <- function(combined, f1_score) {
+  data_obj <- arrow::read_parquet(glue::glue(
+    "fits/{combined}_fit.parquet.lz4"
+  ))
+  ggplot(data_obj, aes(x = x, y = y, color = factor(preds))) +
+    geom_point(show.legend = F) +
+    geom_line(
+      data = original_bound,
+      aes(x = x, y = y),
+      linewidth = 1,
+      alpha = 0.5,
+      color = "white",
+      inherit.aes = FALSE
+    ) +
+    coord_equal() +
+    theme_void() +
+    labs(
+      title = paste(
+        (str_split(combined, "_") |> unlist())[1],
+        " neurons"
+      )
+    )
+}
+
+process_metrics <- function(metrics) {
+  metrics |>
+    bind_rows() |>
+    mutate(row_id = row_number()) |>
+    pivot_longer(c(f1, acc), names_to = "metric", values_to = "val")
+}
+
+rank_metrics <- function() {
+  metric_files <- list.files(
+    here("metrics"),
+    pattern = "*.lz4",
+    full.names = TRUE
+  )
+  metrics <- lapply(metric_files, arrow::read_parquet) |>
+    process_metrics()
+
+  metrics |>
+    filter(metric == "f1") |>
+    group_by(neuron) |>
+    arrange(val) |>
+    mutate(ranked = row_number()) |>
+    ungroup()
+}
+
+
+get_ranked_seed <- function(ranked, neurons, rank_val = 1) {
+  x <- ranked |>
+    filter(neuron == neurons, ranked == rank_val) |>
+    unite(name, neuron, seed, epoch)
+
+  return(list(combined = x$name, val = x$val))
+}
+
+ranked <- rank_metrics()
+width <- 1080
+height <- 1080
+
+if (!file.exists(here("imgs/nn_fits.gif"))) {
+  fname_ls <- lapply(unique(ranked$ranked), function(r) {
+    print(r)
+    a <- list(
+      four = get_ranked_seed(ranked, 4, rank_val = r),
+      eight = get_ranked_seed(ranked, 8, rank_val = r),
+      five = get_ranked_seed(ranked, 5, rank_val = r),
+      ten = get_ranked_seed(ranked, 10, rank_val = r)
+    )
+    p <- plot_nn_fit(a$four$combined, a$four$val) +
+      plot_nn_fit(a$eight$combined, a$eight$val) +
+      plot_nn_fit(a$five$combined, a$five$val) +
+      plot_nn_fit(a$ten$combined, a$ten$val)
+
+    fname <- glue::glue("nn_fits/{r}_rank.png")
+    ggsave(
+      plot = p,
+      filename = fname,
+      width = width,
+      height = height,
+      units = "px",
+      bg = "white",
+      device = "png"
+    )
+    return(fname)
+  })
+  gifski(
+    png_files = unlist(fname_ls),
+    gif_file = here("imgs/nn_fits.gif"),
+    delay = 0.1,
+    width = width,
+    height = height
+  )
+}
+```
+
 ::::{.columns}
-:::{.column}
+:::{.column width=80%}
+```{r}
+#| echo: false
+#| fig-label: nn_fit_holder
 
-Use simple javascript to pick up the plot with the lowest f1 and accuracy and show them here
-
-:::
-:::{.column}
-:::
-:::{.column}
-:::
-:::{.column}
-:::
-::::
-
-:::{.fragment .fade-in}
-Are we sure though?
-
-```{=html}
-<button> Check again </button>
+a <- list(
+  four = get_ranked_seed(ranked, 4),
+  eight = get_ranked_seed(ranked, 8),
+  five = get_ranked_seed(ranked, 5),
+  ten = get_ranked_seed(ranked, 10)
+)
+plot_nn_fit(a$four$combined, a$four$val) +
+  plot_nn_fit(a$eight$combined, a$eight$val) +
+  plot_nn_fit(a$five$combined, a$five$val) +
+  plot_nn_fit(a$ten$combined, a$ten$val)
 ```
 :::
+:::{.column .fragment .fade-in width=20%}
+Are we sure though?
+```{=html}
+<style> button:hover { transform: none; } </style>
+<script>const fnclk = function() { 
+document.querySelector("div[data-fig-label='nn_fit_holder'] img").src = "imgs/nn_fits.gif"
+document.querySelector("div[data-fig-label='nn_fit_holder'] img").style = "width: 80%"
+}</script>
+<button onclick="fnclk()" style="border-radius: 5px; padding: 0.5em; border: 1px solid lightgray; background-color: silver; color: black"> Check again </button>
+```
+
+:::
+::::
 
 # Any guesses on what exactly happened here?
 
@@ -634,46 +777,72 @@ Are we sure though?
 
 The random seed has an effect on how neural networks are being built
 
+:::{.fragment .fade-in}
+
+But why?
+
 It can be due to primarily the initial weights used in the training, which has been used heavily in,
 
 - The lotter ticket hypothesis
 - Meta Learning 
 - And many more cases,
 
-# Cool story bro, so what?
+:::
+
+# Cool story mate, so what?
 
 ## Smaller models for small datasets 
 
+
 I could have chucked a 20 neuron two hidden layer neural network with 500 epochs, 
 
-But why? 
+:::{.fragment .fade-in}
 
-Look at this dataset
+But for this dataset? Does this decision boundary demand a model with more parameters than there are bends in the decision boundary?
 
-Does this decision boundary need more parameters than there are bends in the decision boundary?
+```{r}
+#| echo: false
+
+ggplot(dataset, aes(x = x, y = y, color = factor(class))) +
+  geom_point(size = 0.5) +
+  geom_line(
+    data = original_bound,
+    aes(x = x, y = y),
+    linewidth = 2,
+    alpha = 0.5,
+    color = "white",
+    inherit.aes = FALSE
+  ) +
+  coord_equal() +
+  theme_minimal() +
+  labs(color = "Class", x = "x", y = "y")
+```
+
+:::
 
 ## Fixing things before it starts
 
+:::{.fragment fragment-index=1}
 In a majority of deep learning education material very rarely is the effect of the random seed discussed.
 
 That is why I built a tool for data science educators to educate students by trying out multiple model variants and seeing the difference
+:::
 
+:::{.fragment fragment-index=2}
 And today you get to try that out as well
+:::
 
-As the seocnd batch of students to experience the app
+:::{.fragment fragment-index=3}
+As the second batch of students to experience the app
+:::
 
-## Introducing <Name to be decided>
+## Introducing _Name to be decided_ {.center}
 
 Visit [random-nn-playground.janith.com](http://random-nn-playground.janith.com)
 
 ## The architecture behind the app
 
 ```{mermaid}
-%%| label: fig-architecture
-%%| fig-cap: |
-%%|   The architecture of the pedagogical tool
-%%| fig-width: 6
-
 graph TB
     
     %% Main Application Layer
@@ -802,21 +971,30 @@ flowchart LR
 
 ## Attention is all you need, but did we need that much attention?{.smaller}
 
-*   Modern Transformers have billions of parameters, holding vast world knowledge.
-    *   **Motivating Question:** Can we study simpler models to understand the fundamental computational circuits underlying reasoning 
-and knowledge representation?
-*   Recent research suggests even small models can develop meaningful "circuits, interconnected features collaborating to perform specific tasks.
-*   [@nanda2023progress] demonstrated algorithmic circuits emerging in a 1-layer transformer trained on modular arithmetic.
-    *   [@elhage2022toy] showed how Sparse Autoencoders (SAEs) disentangle overlapping concepts, leading to more interpretable 
-representations.
-*   We will study a 1-layer transformer trained on modular arithmetic.
-    *   **Key Innovation:**  Integrating a Sparse Autoencoder (SAE) *after* the multi-layer perceptron output.
-    *   SAE Reconstruction: Dense input reconstructed using sparse latent features.
-    *   **Gap to Fill:** Lack of simultaneous visualization of training dynamics *and* circuit structure – particularly crucial in 
-small, interpretable models.
-    *   Create an interactive visualization of emerging transformer circuits using SAEs.
-      *   Goal:  Understand how even simple transformers develop reasoning structures.
-      *   Step towards understanding larger, more complex models.
+<!-- *   Modern Transformers have billions of parameters, holding vast world knowledge. -->
+<!--     *   **Motivating Question:** Can we study simpler models to understand the fundamental computational circuits underlying reasoning  -->
+<!-- and knowledge representation? -->
+<!-- *   Recent research suggests even small models can develop meaningful "circuits, interconnected features collaborating to perform specific tasks. -->
+<!-- *   [@nanda2023progress] demonstrated algorithmic circuits emerging in a 1-layer transformer trained on modular arithmetic. -->
+<!--     *   [@elhage2022toy] showed how Sparse Autoencoders (SAEs) disentangle overlapping concepts, leading to more interpretable  -->
+<!-- representations. -->
+<!-- *   We will study a 1-layer transformer trained on modular arithmetic. -->
+<!--     *   **Key Innovation:**  Integrating a Sparse Autoencoder (SAE) *after* the multi-layer perceptron output. -->
+<!--     *   SAE Reconstruction: Dense input reconstructed using sparse latent features. -->
+<!--     *   **Gap to Fill:** Lack of simultaneous visualization of training dynamics *and* circuit structure – particularly crucial in  -->
+<!-- small, interpretable models. -->
+<!--     *   Create an interactive visualization of emerging transformer circuits using SAEs. -->
+<!--       *   Goal:  Understand how even simple transformers develop reasoning structures. -->
+<!--       *   Step towards understanding larger, more complex models. -->
+
+::::{.columns}
+:::{.column width=50%}
+![Toy Transformer Models](imgs/basic_schematic.png)
+:::
+:::{.column width=50%}
+![Training Dynamics in Toy Models of Superimposition](imgs/tmos-img.png)
+:::
+::::
 
 # Timeline
 

@@ -1,2 +1,5 @@
 /.quarto/
-
+fits/
+metrics/
+plots/
+nn_fits/

@@ -29,74 +29,8 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-3cf8b5ad46747fd920cc0ab3b00529b5.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-59774f89fdaf9b7eb6a252eab3566c67.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -335,14 +269,14 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="but" class="slide level2">
-<h2>But,</h2>
+<section id="but-what-if" class="slide level2 center">
+<h2>But what if,</h2>
 <div class="fragment fade-in">
-<h3 id="what-if-instead-of-looking-at-the-numerical-values-of-these-xai-methods"><strong>What if</strong> instead of looking at the numerical values of these XAI methods</h3>
+<p>instead of looking at the numerical values of these XAI methods</p>
 </div>
 <p><br><br></p>
 <div class="fragment fade-in">
-<h3 id="we-represented-the-numbers-as-a-visual-object-within-the-data-itself.">we represented the numbers as a visual object within the data itself.</h3>
+<p>we represented the numbers as a visual object within the data itself.</p>
 </div>
 </section>
 <section id="lime" class="slide level2">
@@ -448,8 +382,9 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
 </section>
 <section id="kultarr-r-package" class="slide level2">
 <h2>Kultarr R package</h2>
-<div style="display:flex; flex-direction: column; justify-content: center; align-items:center"> 
-  <img src="imgs/kultarr.svg" style="width: 50%">
+<div style="display:flex; flex-direction: row; justify-content: space-around; align-items:center"> 
+  <img src="imgs/kultarr-banner.jpg" style="width: 50%">
+  <img src="imgs/kultarr.svg">
 </div>
 <div class="columns">
 <div class="column">
@@ -497,8 +432,8 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
   </div>
 </div>
 </section>
-<section id="extending-detourr" class="slide level2">
-<h2>Extending detourr</h2>
+<section id="further-updates-to-detourr" class="slide level2">
+<h2>Further updates to detourr</h2>
 <div class="columns">
 <div class="column">
 <p><img data-src="imgs/detourr_funcs.gif"></p>
@@ -512,16 +447,17 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
 </ul>
 </div></div>
 </section>
-<section id="xai-explorer" class="slide level2 center">
-<h2>XAI explorer</h2>
+<section id="putting-it-all-together" class="slide level2 center">
+<h2>Putting it all together</h2>
 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
 <p><img src="imgs/app_demo_2.gif"></p>
 </div>
 </section>
 <section id="rosella-r-package" class="slide level2">
 <h2>Rosella R package</h2>
-<div style="display:flex; flex-direction: column; justify-content: center; align-items:center"> 
-  <img src="imgs/rosella.svg" style="width: 50%">
+<div style="display:flex; flex-direction: row; justify-content: space-around; align-items:center"> 
+<img src="imgs/rosella-banner.jpg" style="width:40%">
+  <img src="imgs/rosella.svg">
 </div>
 <div class="columns">
 <div class="column">
@@ -532,12 +468,12 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
 </div></div>
 </section>
 <section>
-<section id="lets-join-the-cult" class="title-slide slide level1 center">
-<h1>Let’s join the cult</h1>
+<section id="lets-join-a-cult" class="title-slide slide level1 center">
+<h1>Let’s join a cult</h1>
 
 </section>
 <section id="being-agnostic-is-fun-and-all-but" class="slide level2">
-<h2>Being agnostic is fun and all, but …</h2>
+<h2>Being agnostic is fun and all, but</h2>
 <p>How long has it been since you last spoke to an LLM? How many of you in this room are chatting with an LLM right now?</p>
 <ul>
 <li class="fragment">Deep Learning and Large Language Models have taken over most of the asepcts of our life.</li>
@@ -552,11 +488,8 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
 </section>
 <section id="simple-stuff-first" class="slide level2">
 <h2>Simple stuff first,</h2>
-<p>Let’s take a look at the following dataset</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">ggplot</span>() <span class="co">#TODO: Fill with the dataset plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s take a look at the following training dataset</p>
 
-</div>
 <img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section></section>
 <section>
 <section id="quick-refresher-on-how-neural-networks-work" class="title-slide slide level1 center">
@@ -567,7 +500,7 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
 <h2>All right for our dataset,</h2>
 <p>Let’s get a quick poll on what our hyperparameters should be</p>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column fragment" data-fragment-index="1" style="width:50%;">
 <p>Known and fixed hyperparameters (for the plot)</p>
 <ul>
 <li>Number of epochs: 100</li>
@@ -577,7 +510,7 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
 <li>Training set size: 5,000</li>
 <li>Testing set size: 5,000</li>
 </ul>
-</div><div class="column" style="width:50%;">
+</div><div class="column fragment" data-fragment-index="2" style="width:50%;">
 <p>What shall we pick as the number of neurons in a single layer?</p>
 <ul>
 <li>4</li>
@@ -585,26 +518,32 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
 <li>8</li>
 <li>10</li>
 </ul>
-<p>Join the live poll below to share your votes</p>
+<p><em>Live poll to be added here</em></p>
 </div></div>
 </section>
-<section id="so-based-on-your-results" class="slide level2">
+<section id="so-based-on-your-results" class="slide level2 smaller">
 <h2>So based on your results,</h2>
 <p>This is the result for a single layer neural network with,</p>
 <div class="columns">
-<div class="column">
-<p>Use simple javascript to pick up the plot with the lowest f1 and accuracy and show them here</p>
-</div><div class="column">
-
-</div><div class="column">
-
-</div><div class="column">
-
-</div></div>
-<div class="fragment fade-in">
-<p>Are we sure though?</p>
-<button> Check again </button>
+<div class="column" style="width:80%;">
+<div class="cell" data-layout-align="center" data-fig-label="nn_fit_holder">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
 </div>
+</div>
+</div>
+</div><div class="column fragment fade-in" style="width:20%;">
+<p>Are we sure though?</p>
+<style> button:hover { transform: none; } </style>
+<script>const fnclk = function() { 
+document.querySelector("div[data-fig-label='nn_fit_holder'] img").src = "imgs/nn_fits.gif"
+document.querySelector("div[data-fig-label='nn_fit_holder'] img").style = "width: 80%"
+}</script>
+<button onclick="fnclk()" style="border-radius: 5px; padding: 0.5em; border: 1px solid lightgray; background-color: silver; color: black"> Check again </button>
+</div></div>
 </section></section>
 <section>
 <section id="any-guesses-on-what-exactly-happened-here" class="title-slide slide level1 center">
@@ -614,45 +553,62 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
 <section id="for-an-entire-year-i-used-the-wrong-seed" class="slide level2">
 <h2>For an entire year I used the wrong seed</h2>
 <p>The random seed has an effect on how neural networks are being built</p>
+<div class="fragment fade-in">
+<p>But why?</p>
 <p>It can be due to primarily the initial weights used in the training, which has been used heavily in,</p>
 <ul>
 <li>The lotter ticket hypothesis</li>
 <li>Meta Learning</li>
 <li>And many more cases,</li>
 </ul>
+</div>
 </section></section>
 <section>
-<section id="cool-story-bro-so-what" class="title-slide slide level1 center">
-<h1>Cool story bro, so what?</h1>
+<section id="cool-story-mate-so-what" class="title-slide slide level1 center">
+<h1>Cool story mate, so what?</h1>
 
 </section>
 <section id="smaller-models-for-small-datasets" class="slide level2">
 <h2>Smaller models for small datasets</h2>
 <p>I could have chucked a 20 neuron two hidden layer neural network with 500 epochs,</p>
-<p>But why?</p>
-<p>Look at this dataset</p>
-<p>Does this decision boundary need more parameters than there are bends in the decision boundary?</p>
+<div class="fragment fade-in">
+<p>But for this dataset? Does this decision boundary demand a model with more parameters than there are bends in the decision boundary?</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="fixing-things-before-it-starts" class="slide level2">
 <h2>Fixing things before it starts</h2>
+<div class="fragment" data-fragment-index="1">
 <p>In a majority of deep learning education material very rarely is the effect of the random seed discussed.</p>
 <p>That is why I built a tool for data science educators to educate students by trying out multiple model variants and seeing the difference</p>
+</div>
+<div class="fragment" data-fragment-index="2">
 <p>And today you get to try that out as well</p>
-<p>As the seocnd batch of students to experience the app</p>
+</div>
+<div class="fragment" data-fragment-index="3">
+<p>As the second batch of students to experience the app</p>
+</div>
 </section>
-<section id="introducing" class="slide level2">
-<h2>Introducing <name to="" be="" decided=""></name></h2>
+<section id="introducing-name-to-be-decided" class="slide level2 center">
+<h2>Introducing <em>Name to be decided</em></h2>
 <p>Visit <a href="http://random-nn-playground.janith.com">random-nn-playground.janith.com</a></p>
 </section>
 <section id="the-architecture-behind-the-app" class="slide level2">
 <h2>The architecture behind the app</h2>
-<div class="cell" data-reveal="true" data-fig-width="6" data-layout-align="default">
+<div class="cell" data-reveal="true" data-layout-align="default">
 <div class="cell-output-display">
-<div id="fig-architecture" class="quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-architecture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div>
-<pre class="mermaid mermaid-js" data-label="fig-architecture">graph TB
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TB
     
     %% Main Application Layer
     subgraph "Main Application (R/Shiny)"
@@ -715,11 +671,7 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
     class Parquet data
 </pre>
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-architecture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: The architecture of the pedagogical tool
-</figcaption>
-</figure>
+<p></p></figure><p></p>
 </div>
 </div>
 </div>
@@ -800,33 +752,44 @@ Figure&nbsp;5: The architecture of the pedagogical tool
 </section>
 <section id="attention-is-all-you-need-but-did-we-need-that-much-attention" class="slide level2 smaller">
 <h2>Attention is all you need, but did we need that much attention?</h2>
-<ul>
-<li>Modern Transformers have billions of parameters, holding vast world knowledge.
-<ul>
-<li><strong>Motivating Question:</strong> Can we study simpler models to understand the fundamental computational circuits underlying reasoning and knowledge representation?</li>
-</ul></li>
-<li>Recent research suggests even small models can develop meaningful “circuits, interconnected features collaborating to perform specific tasks.</li>
-<li><span class="citation" data-cites="nanda2023progress">[@nanda2023progress]</span> demonstrated algorithmic circuits emerging in a 1-layer transformer trained on modular arithmetic.
-<ul>
-<li><span class="citation" data-cites="elhage2022toy">[@elhage2022toy]</span> showed how Sparse Autoencoders (SAEs) disentangle overlapping concepts, leading to more interpretable representations.</li>
-</ul></li>
-<li>We will study a 1-layer transformer trained on modular arithmetic.
-<ul>
-<li><strong>Key Innovation:</strong> Integrating a Sparse Autoencoder (SAE) <em>after</em> the multi-layer perceptron output.</li>
-<li>SAE Reconstruction: Dense input reconstructed using sparse latent features.</li>
-<li><strong>Gap to Fill:</strong> Lack of simultaneous visualization of training dynamics <em>and</em> circuit structure – particularly crucial in small, interpretable models.</li>
-<li>Create an interactive visualization of emerging transformer circuits using SAEs.</li>
-<li>Goal: Understand how even simple transformers develop reasoning structures.</li>
-<li>Step towards understanding larger, more complex models.</li>
-</ul></li>
-</ul>
+<!-- *   Modern Transformers have billions of parameters, holding vast world knowledge. -->
+<!--     *   **Motivating Question:** Can we study simpler models to understand the fundamental computational circuits underlying reasoning  -->
+<!-- and knowledge representation? -->
+<!-- *   Recent research suggests even small models can develop meaningful "circuits, interconnected features collaborating to perform specific tasks. -->
+<!-- *   [@nanda2023progress] demonstrated algorithmic circuits emerging in a 1-layer transformer trained on modular arithmetic. -->
+<!--     *   [@elhage2022toy] showed how Sparse Autoencoders (SAEs) disentangle overlapping concepts, leading to more interpretable  -->
+<!-- representations. -->
+<!-- *   We will study a 1-layer transformer trained on modular arithmetic. -->
+<!--     *   **Key Innovation:**  Integrating a Sparse Autoencoder (SAE) *after* the multi-layer perceptron output. -->
+<!--     *   SAE Reconstruction: Dense input reconstructed using sparse latent features. -->
+<!--     *   **Gap to Fill:** Lack of simultaneous visualization of training dynamics *and* circuit structure – particularly crucial in  -->
+<!-- small, interpretable models. -->
+<!--     *   Create an interactive visualization of emerging transformer circuits using SAEs. -->
+<!--       *   Goal:  Understand how even simple transformers develop reasoning structures. -->
+<!--       *   Step towards understanding larger, more complex models. -->
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imgs/basic_schematic.png"></p>
+<figcaption>Toy Transformer Models</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imgs/tmos-img.png"></p>
+<figcaption>Training Dynamics in Toy Models of Superimposition</figcaption>
+</figure>
+</div>
+</div></div>
 </section></section>
 <section>
 <section id="timeline" class="title-slide slide level1 center">
 <h1>Timeline</h1>
 
 <img data-src="index_files/figure-revealjs/fig-timeline-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%" id="fig-timeline"><p class="caption">
-Figure&nbsp;6: Project timeline for the PhD
+Figure&nbsp;5: Project timeline for the PhD
 </p></section>
 <section id="thank-you" class="slide level2 center">
 <h2>Thank you!</h2>
@@ -873,7 +836,7 @@ Figure&nbsp;6: Project timeline for the PhD
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="imgs/slide-url-qr.png" class="slide-logo"></p>
 <div class="footer footer-default">
-<p>https://janithwanni-phd-2nd-year.netlify.app/</p>
+<p>https://2nd-year-milestone-slides.pages.dev/</p>
 </div>
 </div></div>
 

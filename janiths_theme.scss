@@ -1,16 +1,16 @@
 /*-- scss:defaults --*/
 /* Font families */
-@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital@0;1&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital@0;1&display=swap");
 
-$barlow: 'Barlow', sans-serif;
-$poppins: 'Poppins', sans-serif;
-$lora: 'Lora', serif;
-$nunito: 'Nunito Sans', sans-serif;
-$pt-sans: 'PT Sans', 'sans-serif';
+$barlow: "Barlow", sans-serif;
+$poppins: "Poppins", sans-serif;
+$lora: "Lora", serif;
+$nunito: "Nunito Sans", sans-serif;
+$pt-sans: "PT Sans", "sans-serif";
 
 /* SCSS HEX */
 $black: #000;
@@ -32,6 +32,8 @@ $font-family-sans-serif: $nunito;
 $presentation-heading-font: $lora;
 $presentation-heading-color: $accent2-dark;
 $accent-color: $accent-light;
+
+$mermaid-fg-color--lightest: lighten($white, 20%);
 
 .slide-menu-button {
   display: none;
@@ -89,7 +91,6 @@ $accent-color: $accent-light;
   color: $accent2-light !important;
 }
 
-
 // Colors
 // $body-bg 	#fff
 // $body-color 	#222
@@ -141,4 +142,3 @@ $accent-color: $accent-light;
 // $presentation-block-margin 	12px
 // $presentation-slide-text-align 	left
 // $presentation-title-slide-text-align 	center
-
