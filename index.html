@@ -30,7 +30,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-59774f89fdaf9b7eb6a252eab3566c67.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-5df32a4b46155a58a71cd3e33d4152d1.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -122,6 +122,7 @@
       margin-right: 0; 
     }
   </style>
+  <meta name="mermaid-theme" content="neutral">
   <script src="index_files/libs/quarto-diagram/mermaid.min.js"></script>
   <script src="index_files/libs/quarto-diagram/mermaid-init.js"></script>
   <link href="index_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
@@ -271,12 +272,13 @@
 </section>
 <section id="but-what-if" class="slide level2 center">
 <h2>But what if,</h2>
+<p><br></p>
 <div class="fragment fade-in">
-<p>instead of looking at the numerical values of these XAI methods</p>
+<h3 id="instead-of-looking-at-the-numerical-values-of-these-xai-methods">instead of looking at the numerical values of these XAI methods</h3>
 </div>
-<p><br><br></p>
+<p><br></p>
 <div class="fragment fade-in">
-<p>we represented the numbers as a visual object within the data itself.</p>
+<h3 id="we-represented-the-numbers-as-a-visual-object-within-the-data-itself.">we represented the numbers as a visual object within the data itself.</h3>
 </div>
 </section>
 <section id="lime" class="slide level2">
@@ -472,14 +474,17 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
 <h1>Let’s join a cult</h1>
 
 </section>
-<section id="being-agnostic-is-fun-and-all-but" class="slide level2">
+<section id="being-agnostic-is-fun-and-all-but" class="slide level2 center">
 <h2>Being agnostic is fun and all, but</h2>
-<p>How long has it been since you last spoke to an LLM? How many of you in this room are chatting with an LLM right now?</p>
-<ul>
-<li class="fragment">Deep Learning and Large Language Models have taken over most of the asepcts of our life.</li>
-<li class="fragment">Model Agnostic XAI methods can poke and prod at the model but,</li>
-<li class="fragment">Unless we crack open the model wide we won’t be able to tell what’s happening in these models.</li>
-</ul>
+<div class="fragment">
+<p>How long has it been since you last spoke to an LLM?</p>
+</div>
+<div class="fragment">
+<p>Model Agnostic XAI methods can poke and prod at a model like neural networks but,</p>
+</div>
+<div class="fragment">
+<p>we want to crack open models to understand the specific internals and possibly simplify them.</p>
+</div>
 </section></section>
 <section>
 <section id="so-lets-fit-a-neural-network" class="title-slide slide level1 center">
@@ -495,13 +500,12 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
 <section id="quick-refresher-on-how-neural-networks-work" class="title-slide slide level1 center">
 <h1>Quick refresher on how neural networks work</h1>
 
-</section>
-<section id="all-right-for-our-dataset" class="slide level2">
+<img data-src="https://playground.tensorflow.org/.png" class="r-stretch quarto-figure-center"><p class="caption">Playground</p></section>
+<section id="all-right-for-our-dataset" class="slide level2 smaller">
 <h2>All right for our dataset,</h2>
-<p>Let’s get a quick poll on what our hyperparameters should be</p>
 <div class="columns">
 <div class="column fragment" data-fragment-index="1" style="width:50%;">
-<p>Known and fixed hyperparameters (for the plot)</p>
+<h4 id="fixed-hyperparameters-for-the-plot">Fixed hyperparameters (for the plot)</h4>
 <ul>
 <li>Number of epochs: 100</li>
 <li>Batch size: 71</li>
@@ -510,15 +514,14 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
 <li>Training set size: 5,000</li>
 <li>Testing set size: 5,000</li>
 </ul>
+<h4 id="what-shall-we-pick-as-the-number-of-neurons-in-a-single-layer">What shall we pick as the number of neurons in a single layer?</h4>
 </div><div class="column fragment" data-fragment-index="2" style="width:50%;">
-<p>What shall we pick as the number of neurons in a single layer?</p>
-<ul>
-<li>4</li>
-<li>5</li>
-<li>8</li>
-<li>10</li>
-</ul>
-<p><em>Live poll to be added here</em></p>
+<p><img data-src="imgs/mentimeter_qr_code.png" style="width: 4rem; margin: 0 auto; text-align: center; display: block"></p>
+<p>Join the online poll at <a href="menti.com">menti.com</a> with code <code>8902 9625</code></p>
+<div style="position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;">
+<iframe sandbox="allow-scripts allow-same-origin allow-presentation" allowfullscreen="true" allowtransparency="true" frameborder="0" height="315" src="https://www.mentimeter.com/app/presentation/al3izsa4oukki2ynxuqfbv77a219zeb1/embed" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" width="420">
+</iframe>
+</div>
 </div></div>
 </section>
 <section id="so-based-on-your-results" class="slide level2 smaller">
@@ -540,10 +543,57 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
 <style> button:hover { transform: none; } </style>
 <script>const fnclk = function() { 
 document.querySelector("div[data-fig-label='nn_fit_holder'] img").src = "imgs/nn_fits.gif"
-document.querySelector("div[data-fig-label='nn_fit_holder'] img").style = "width: 80%"
+document.querySelector("div[data-fig-label='nn_fit_holder'] img").style = "width: 65%"
 }</script>
 <button onclick="fnclk()" style="border-radius: 5px; padding: 0.5em; border: 1px solid lightgray; background-color: silver; color: black"> Check again </button>
 </div></div>
+</section>
+<section id="wait-hol-up" class="slide level2">
+<h2>Wait, Hol’ up</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Worst of each</a></li><li><a href="#tabset-1-2">Best of each</a></li><li><a href="#tabset-1-3">Spread of model metrics</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div style="width: 50vw">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2">
+<div style="width: 50vw">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-3">
+<div style="width: 60vw">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="any-guesses-on-what-exactly-happened-here" class="title-slide slide level1 center">
@@ -552,14 +602,12 @@ document.querySelector("div[data-fig-label='nn_fit_holder'] img").style = "width
 </section>
 <section id="for-an-entire-year-i-used-the-wrong-seed" class="slide level2">
 <h2>For an entire year I used the wrong seed</h2>
-<p>The random seed has an effect on how neural networks are being built</p>
+<p>The random seed has an effect on how neural networks are being built.</p>
 <div class="fragment fade-in">
-<p>But why?</p>
-<p>It can be due to primarily the initial weights used in the training, which has been used heavily in,</p>
+<p>But why does the seed have an effect?</p>
 <ul>
-<li>The lotter ticket hypothesis</li>
-<li>Meta Learning</li>
-<li>And many more cases,</li>
+<li class="fragment">It can be due to primarily the initial weights used in the training, which has been discussed in the lottery ticket hypothesis Model Agnostic Meta Learning (MAML), and many more cases.</li>
+<li class="fragment">It can be due to shuffling in mini batches.</li>
 </ul>
 </div>
 </section></section>
@@ -573,32 +621,36 @@ document.querySelector("div[data-fig-label='nn_fit_holder'] img").style = "width
 <p>I could have chucked a 20 neuron two hidden layer neural network with 500 epochs,</p>
 <div class="fragment fade-in">
 <p>But for this dataset? Does this decision boundary demand a model with more parameters than there are bends in the decision boundary?</p>
+<div style="width: 40vw; margin: 0 auto; display: block">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
+</div>
 </section>
-<section id="fixing-things-before-it-starts" class="slide level2">
+<section id="fixing-things-before-it-starts" class="slide level2 center">
 <h2>Fixing things before it starts</h2>
+<p><br></p>
 <div class="fragment" data-fragment-index="1">
 <p>In a majority of deep learning education material very rarely is the effect of the random seed discussed.</p>
+<p><br></p>
 <p>That is why I built a tool for data science educators to educate students by trying out multiple model variants and seeing the difference</p>
 </div>
 <div class="fragment" data-fragment-index="2">
-<p>And today you get to try that out as well</p>
+<h4 id="and-today-you-get-to-try-that-out-as-well">And today you get to try that out as well</h4>
 </div>
 <div class="fragment" data-fragment-index="3">
-<p>As the second batch of students to experience the app</p>
+<h4 id="as-the-second-batch-of-students-to-experience-the-app">As the second batch of students to experience the app</h4>
 </div>
 </section>
-<section id="introducing-name-to-be-decided" class="slide level2 center">
-<h2>Introducing <em>Name to be decided</em></h2>
+<section id="introducing-the-blind-box-simulator" class="slide level2 center">
+<h2>Introducing The Blind Box Simulator</h2>
 <p>Visit <a href="http://random-nn-playground.janith.com">random-nn-playground.janith.com</a></p>
 </section>
 <section id="the-architecture-behind-the-app" class="slide level2">
@@ -678,119 +730,140 @@ document.querySelector("div[data-fig-label='nn_fit_holder'] img").style = "width
 </section>
 <section id="the-methodology-behind-the-app" class="slide level2">
 <h2>The methodology behind the app</h2>
+<div style="width: 80vw; margin: 0 auto; display: block">
 <div class="cell" data-reveal="true" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-    A["Start: Input Decision Boundary Function f&lt;br/&gt;Seed Range [1, 99999]&lt;br/&gt;Neuron Sizes N"] --&gt; B[Phase 1: Dataset Generation]
+<pre class="mermaid mermaid-js">flowchart TB
+    A["Start: Input Decision Boundary Function f&lt;br/&gt;Seed Range [1, 99999]&lt;br/&gt; Neuron Sizes N"] --&gt; P1
     
-    B --&gt; C[Set Consistent Seed for Reproducibility]
-    C --&gt; D["Generate 10,000 Samples&lt;br/&gt;Uniformly from [-10, 10] × [-10, 10]"]
-    D --&gt; E["For Each Point (x₁, x₂)"]
-    E --&gt; F["Assign Label y = f(x₁, x₂)&lt;br/&gt;Above/Below Boundary"]
-    F --&gt; G[Create Training and Testing Datasets]
+    subgraph P1 ["Phase 1: Dataset Generation"]
+        direction LR
+        B[Set Consistent Seed for Reproducibility]
+        C["Generate 10,000 Samples&lt;br/&gt;Uniformly from [-10, 10] × [-10, 10]"]
+        
+        B --&gt; C
+    end
     
-    G --&gt; H[Phase 2: Parallel Training Process]
+    P1 --&gt; P2
     
-    H --&gt; I[For Each Neuron Size n ∈ N]
-    I --&gt; J["Select Random Seed s ∈ [1, 99999]"]
-    J --&gt; K["For Each Seed-Neuron Combination (s, n)"]
+    subgraph P2 ["Phase 2: Parallel Training Process"]
+        direction LR
+        G[For Each Neuron Size n ∈ N]
+        H["Select Random Seed s ∈ [1, 99999]"]
+        I["Initialize Neural Network:&lt;br/&gt;Input: 2, Hidden: n (ReLU), Output: 1 (Sigmoid)"]
+        J[Configure: Batch=71, Adam lr=0.01, BCE Loss]
+        
+        K[Training Loop: 500 Epochs]
+        L[Shuffle Data → Batch Processing]
+        M[Forward Pass → Loss → Backward Pass]
+         
+        G --&gt; H --&gt; I --&gt; J --&gt; K
+        K --&gt; L --&gt; M
+    end
     
-    K --&gt; L["Initialize Single-Layer Neural Network:&lt;br/&gt;• Input: 2 nodes&lt;br/&gt;• Hidden: n neurons (ReLU)&lt;br/&gt;• Output: 1 node (Sigmoid)"]
+    P2 --&gt; P3
     
-    L --&gt; M[Set Network Weights Using Seed s]
-    M --&gt; N["Configure Training Parameters:&lt;br/&gt;• Batch Size: b = ⌊√|D|⌋ = 71&lt;br/&gt;• Adam Optimizer: lr=0.01&lt;br/&gt;• Loss: Binary Cross Entropy"]
+    subgraph P3 ["Phase 3: Model Evaluation"]
+        direction LR
+        P[For Each Trained Model M]
+        Q[Evaluate on Testing Dataset:&lt;br/&gt;• Compute Predictions&lt;br/&gt;• Calculate F1-Score &amp; Accuracy]
+        R[Create Decision Boundary:&lt;br/&gt;• Generate 100×100 Grid&lt;br/&gt;• Apply Model to Grid]
+        T[Return: Models, Metrics, Boundaries]
+        
+        P --&gt; Q --&gt; R --&gt; T 
+    end
     
-    N --&gt; O[Training Loop: 500 Epochs]
-    O --&gt; P[Shuffle Training Data Using Seed s]
-    P --&gt; Q[For Each Batch B of Size b]
-    
-    Q --&gt; R["Forward Pass:&lt;br/&gt;ŷ = σ(W₂ · ReLU(W₁ · X + b₁) + b₂)"]
-    R --&gt; S[Compute BCE Loss]
-    S --&gt; T[Backward Pass &amp; Adam Update]
-    
-    T --&gt; U{More Batches?}
-    U --&gt;|Yes| Q
-    U --&gt;|No| V{More Epochs?}
-    V --&gt;|Yes| P
-    V --&gt;|No| W{More Seed-Neuron&lt;br/&gt;Combinations?}
-    
-    W --&gt;|Yes| K
-    W --&gt;|No| X{More Neuron&lt;br/&gt;Sizes?}
-    X --&gt;|Yes| I
-    X --&gt;|No| Y[Phase 3: Model Evaluation]
-    
-    Y --&gt; Z[For Each Trained Model M]
-    Z --&gt; AA[Evaluate on Testing Dataset:&lt;br/&gt;• Compute Predictions ŷₜₑₛₜ&lt;br/&gt;• Calculate F1-Score&lt;br/&gt;• Calculate Accuracy]
-    
-    AA --&gt; BB[Create Decision Boundary Visualization:&lt;br/&gt;• Generate 100×100 Grid&lt;br/&gt;• Apply Model to Grid&lt;br/&gt;• Store Boundary Predictions]
-    
-    BB --&gt; CC{More Models?}
-    CC --&gt;|Yes| Z
-    CC --&gt;|No| DD[Return: Models, Metrics,&lt;br/&gt;Decision Boundaries]
-    
-    DD --&gt; EE[End]
-    
-    style B fill:#e1f5fe
-    style H fill:#f3e5f5
-    style Y fill:#e8f5e8
-    style A fill:#fff3e0
-    style EE fill:#fff3e0
+    P3 --&gt; U[End]
 </pre>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
+</div>
 </section></section>
 <section>
-<section id="where-to-from-here" class="title-slide slide level1 center">
-<h1>Where to from here?</h1>
+<section id="attention-is-all-you-need-but-did-we-need-this-much-attention" class="title-slide slide level1 smaller center">
+<h1>Attention is all you need, but did we need this much attention?</h1>
 
 </section>
-<section id="attention-is-all-you-need-but-did-we-need-that-much-attention" class="slide level2 smaller">
-<h2>Attention is all you need, but did we need that much attention?</h2>
-<!-- *   Modern Transformers have billions of parameters, holding vast world knowledge. -->
-<!--     *   **Motivating Question:** Can we study simpler models to understand the fundamental computational circuits underlying reasoning  -->
-<!-- and knowledge representation? -->
-<!-- *   Recent research suggests even small models can develop meaningful "circuits, interconnected features collaborating to perform specific tasks. -->
-<!-- *   [@nanda2023progress] demonstrated algorithmic circuits emerging in a 1-layer transformer trained on modular arithmetic. -->
-<!--     *   [@elhage2022toy] showed how Sparse Autoencoders (SAEs) disentangle overlapping concepts, leading to more interpretable  -->
-<!-- representations. -->
-<!-- *   We will study a 1-layer transformer trained on modular arithmetic. -->
-<!--     *   **Key Innovation:**  Integrating a Sparse Autoencoder (SAE) *after* the multi-layer perceptron output. -->
-<!--     *   SAE Reconstruction: Dense input reconstructed using sparse latent features. -->
-<!--     *   **Gap to Fill:** Lack of simultaneous visualization of training dynamics *and* circuit structure – particularly crucial in  -->
-<!-- small, interpretable models. -->
-<!--     *   Create an interactive visualization of emerging transformer circuits using SAEs. -->
-<!--       *   Goal:  Understand how even simple transformers develop reasoning structures. -->
-<!--       *   Step towards understanding larger, more complex models. -->
+<section id="what-we-are-planning-on-doing" class="slide level2">
+<h2>What we are planning on doing?</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
+<p>Using a simple toy transformer model trained to solve problems of the form <code>5 + 7 % 10 = ?</code>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="imgs/basic_schematic.png"></p>
+<p><img data-src="imgs/basic_schematic.png" style="width:80.0%"></p>
 <figcaption>Toy Transformer Models</figcaption>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
+<p>Visualise how the attention heads learn by using Sparse Auto Encoders</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="imgs/tmos-img.png"></p>
+<p><img data-src="imgs/tmos-img.png" style="width:80.0%"></p>
 <figcaption>Training Dynamics in Toy Models of Superimposition</figcaption>
 </figure>
 </div>
 </div></div>
 </section></section>
 <section>
+<section id="looking-back-and-forward" class="title-slide slide level1 center">
+<h1>Looking back and forward</h1>
+
+</section>
+<section id="thesis-structure" class="slide level2">
+<h2>Thesis Structure</h2>
+<div style="width: 60vw; margin: 0 auto; display: block">
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">mindmap
+  root((The thesis))
+    How can traditional machine learning models be explained visually?
+      Kultarr: A simple, visual rewrite of Kultarr
+        Geometric representations of XAI
+          Rosella: An XAI explorer
+    What are the hurdles to explain deep learning models?
+      Complex models over parsimonious models
+        The effect of random numbers used in the model
+    How can we make a dent in understanding large language models?
+      Visualizing trajectory of weights over time 
+      Identifying circuits between attention heads
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
 <section id="timeline" class="title-slide slide level1 center">
 <h1>Timeline</h1>
-
-<img data-src="index_files/figure-revealjs/fig-timeline-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%" id="fig-timeline"><p class="caption">
+<div style="width: 60vw; margin: 0 auto; display: block">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-timeline" class="quarto-float quarto-figure quarto-figure-center" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-timeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="index_files/figure-revealjs/fig-timeline-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-timeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;5: Project timeline for the PhD
-</p></section>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
 <section id="thank-you" class="slide level2 center">
 <h2>Thank you!</h2>
 <p>Have any suggestions or ideas? <i class="fa-solid fa-comment" aria-label="comment"></i></p>
@@ -798,8 +871,8 @@ Figure&nbsp;5: Project timeline for the PhD
   <div class="card">
     <div class="card-text">
       <div class="portada">
-        <img src="imgs/banner-image-hiroshige.png">
-        <span style="font-size: 0.7rem; font-style: italic;"> The colour palette for these slides are inspired by the painting "Sailing Boats Returning to Yabase" by Utagawa Hiroshige, 1835 (MetBrewer R package) </span>
+        <img src="imgs/banner_img_1.jpg">
+        <span style="font-size: 0.7rem; font-style: italic;"> The colour palette for these slides are inspired by the photograph by Bill Henson as part of the art installation Oneiroi in the Hellenic Museum, Melbourne. </span>
       </div>
       <div class="title-total"> 
         <div class="img-container">
@@ -834,7 +907,6 @@ Figure&nbsp;5: Project timeline for the PhD
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="imgs/slide-url-qr.png" class="slide-logo"></p>
 <div class="footer footer-default">
 <p>https://2nd-year-milestone-slides.pages.dev/</p>
 </div>

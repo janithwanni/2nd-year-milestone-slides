@@ -1,16 +1,12 @@
 /*-- scss:defaults --*/
 /* Font families */
 @import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lora:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Outfit:wght@100..900&family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap");
 
 $barlow: "Barlow", sans-serif;
-$poppins: "Poppins", sans-serif;
 $lora: "Lora", serif;
-$nunito: "Nunito Sans", sans-serif;
-$pt-sans: "PT Sans", "sans-serif";
+$outfit: "Outfit", sans-serif;
 
 /* SCSS HEX */
 $black: #000;
@@ -21,14 +17,14 @@ $white: #fff;
 // Hiroshige
 // "#e76254" "#ef8a47" "#ffd06f" "#ffe6b7" "#aadce0" "#72bcd5" "#376795"
 
-$accent-dark: #e76254;
-$accent-light: #ef8a47;
-$accent2-dark: #376795;
-$accent2-light: #72bcd5;
+$accent-dark: #e57f12;
+$accent-light: #c19c0b;
+$accent2-dark: #38535e;
+$accent2-light: #a35b11;
 
 $body-bg: $white;
 $body-color: $black;
-$font-family-sans-serif: $nunito;
+$font-family-sans-serif: $outfit;
 $presentation-heading-font: $lora;
 $presentation-heading-color: $accent2-dark;
 $accent-color: $accent-light;
