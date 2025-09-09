@@ -2,7 +2,7 @@
 format:
   revealjs:
     pagetitle: "Neural Networks and Randomness"
-    footer: "https://2nd-year-milestone-slides.pages.dev/"
+    footer: "phd-second-year.janithwanni.com/"
     theme: [default, janiths_theme.scss, confirmation_presentation.scss]
     slide-number: true
     smaller: true
@@ -555,20 +555,15 @@ Try the package out from [https://github.com/janithwanni/rosella](https:://githu
 
 # Let's join a cult  
 
-## Being agnostic is fun and all, but {.center}
-
-. . . 
-
 How long has it been since you last spoke to an LLM? 
 
-. . . 
+## Being agnostic is fun and all, {.center}
 
 Model Agnostic XAI methods can poke and prod at a model like neural networks but,
 
 . . . 
 
 we want to crack open models to understand the specific internals and possibly simplify them.
-
 
 # So let's fit a neural network
 
@@ -622,14 +617,14 @@ ggplot(dataset, aes(x = x, y = y, color = factor(class))) +
 - Training set size: 5,000
 - Testing set size: 5,000
 
-#### What shall we pick as the number of neurons in a single layer? 
-
-:::
-:::{.column .fragment fragment-index=2 width=50%}
+**What shall we pick as the number of neurons in a single layer?**
 
 ![](imgs/mentimeter_qr_code.png){style="width: 4rem; margin: 0 auto; text-align: center; display: block"}
 
 Join the online poll at [menti.com](menti.com) with code `8902 9625` 
+
+:::
+:::{.column .fragment fragment-index=2 width=50%}
 
 <div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/app/presentation/al3izsa4oukki2ynxuqfbv77a219zeb1/embed' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
 
@@ -1012,7 +1007,7 @@ graph TB
 
 ## The backend
 
-:::{style = "width: 60vw; margin: 0 auto; display: block"}
+:::{style = "width: 50vw; margin: 0 auto; display: block"}
 ```{mermaid}
 flowchart LR
 
@@ -1060,7 +1055,11 @@ flowchart LR
 ```
 :::
 
-# Attention is all you need, but did we need this much attention? {.smaller}
+# Where to from here?
+
+## Attention is all you need, but did we need this much attention? {.smaller}
+
+<iframe src="https://ourworldindata.org/grapher/exponential-growth-of-parameters-in-notable-ai-systems?yScale=linear&time=2020-02-13..latest&country=&tab=chart" loading="lazy" style="width: 100%; height: 550px; border: 0px none;" allow="web-share; clipboard-write"></iframe>
 
 ## What are we planning on doing?
 
@@ -1105,12 +1104,11 @@ mindmap
 
 # Timeline
 
-:::{style = "width: 60vw; margin: 0 auto; display: block"}
+:::{style = "width: 65vw; margin: 0 auto; display: block"}
 
 ```{r}
-#| label: fig-timeline
-#| fig-cap: "Project timeline for the PhD"
-#| fig-width: 11
+#| fig-width: 19
+#| fig-height: 11
 #| echo: false
 
 year_one <- tribble(
@@ -1208,11 +1206,10 @@ prj_data <- bind_rows(
 ganttrify::ganttrify(
   project = prj_data |> select(wp, activity, start_date, end_date),
   project_start_date = "2023-07",
-  size_text_relative = 1.5,
+  size_text_relative = 2.5,
   month_breaks = 6,
-  colour_palette = wesanderson::wes_palette("Zissou1")[1]
-) +
-  labs(title = "PhD timeline")
+  colour_palette = c("#E57F12", "#38535E", "#C19C0B")
+)
 ```
 
 :::
