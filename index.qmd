@@ -468,7 +468,7 @@ Try the package out from [https://github.com/janithwanni/kultarr](https:://githu
 :::
 ::::
 
-## In two dimensions,
+## The proposed geometric represenations,
 
 <br/> 
 
@@ -517,12 +517,18 @@ Try the package out from [https://github.com/janithwanni/kultarr](https:://githu
 :::
 ::: {.column}
 
-* Clicking on points in the detourr widget now returns the identifier.
-* A proxy was created to communicate with an existing rendered detourr widget.
-* Added support for adding points and edges connecting new points.
-* Options to customize aesthetics of points and edges.
-* Existing points can be highlighted or enlarged.
+* Converted the structure of the widget to a single unified widget.
+* Official support for
+  * Clicking on points in the detourr widget now returns the identifier.
+  * A proxy was created to communicate with an existing rendered detourr widget.
+    * Now supporting Shiny namespaces 
+  * Added support for adding points and edges connecting new points.
+  * Options to customize aesthetics of points and edges.
+  * Existing points can be highlighted or enlarged.
+* Multiple bug fixes were made 
 
+More documentation changes to be done in the future!
+Stay tuned at `casperhart/detourr`
 :::
 ::::
 
@@ -862,6 +868,23 @@ ggplot(
 ```
 :::
 
+<!-- ### For funsies, -->
+<!---->
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- ggplot( -->
+<!--   data = spreads |> -->
+<!--     filter(metric == "f1") |> -->
+<!--     mutate( -->
+<!--       metric = "F1 Score" -->
+<!--     ) -->
+<!-- ) + -->
+<!--   aes(y = val, x = seed, color = as.factor(neuron), tooltip = seed) + -->
+<!--   geom_point(size = 0.25) + -->
+<!--   facet_wrap(~metric) + -->
+<!--   theme_minimal() + -->
+<!--   labs(x = "Seed", y = "F1 Score", color = "Neuron") -->
+<!-- ``` -->
 
 :::
 
@@ -877,7 +900,7 @@ But why does the seed have an effect?
 
 :::{.incremental}
 
-- It can be due to primarily the initial weights used in the training, which has been discussed in the lottery ticket hypothesis Model Agnostic Meta Learning (MAML), and many more cases.
+- It can be due to primarily the initial weights used in the training, which has been discussed in Model Agnostic Meta Learning (MAML) and many more cases.
 - It can be due to shuffling in mini batches. 
 :::
 
@@ -937,7 +960,7 @@ That is why I built a tool for data science educators to educate students by try
 
 ## Introducing The Blind Box Simulator {.center}
 
-Visit [random-nn-playground.janith.com](http://random-nn-playground.janith.com)
+Visit [random-nn-playground.janithwanni.com](http://random-nn-playground.janithwanni.com)
 
 ## The architecture behind the app
 

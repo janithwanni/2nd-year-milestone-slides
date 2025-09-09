@@ -396,8 +396,8 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
 <p>Try the package out from <a href="https:://github.com/janithwanni/kultarr">https://github.com/janithwanni/kultarr</a></p>
 </div></div>
 </section>
-<section id="in-two-dimensions" class="slide level2">
-<h2>In two dimensions,</h2>
+<section id="the-proposed-geometric-represenations" class="slide level2">
+<h2>The proposed geometric represenations,</h2>
 <p><br></p>
 <div style="display:flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; font-size: 2.5rem; font-weight: bold; gap: 2rem">
   <div>
@@ -441,12 +441,21 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
 <p><img data-src="imgs/detourr_funcs.gif"></p>
 </div><div class="column">
 <ul>
+<li>Converted the structure of the widget to a single unified widget.</li>
+<li>Official support for
+<ul>
 <li>Clicking on points in the detourr widget now returns the identifier.</li>
-<li>A proxy was created to communicate with an existing rendered detourr widget.</li>
+<li>A proxy was created to communicate with an existing rendered detourr widget.
+<ul>
+<li>Now supporting Shiny namespaces</li>
+</ul></li>
 <li>Added support for adding points and edges connecting new points.</li>
 <li>Options to customize aesthetics of points and edges.</li>
 <li>Existing points can be highlighted or enlarged.</li>
+</ul></li>
+<li>Multiple bug fixes were made</li>
 </ul>
+<p>More documentation changes to be done in the future! Stay tuned at <code>casperhart/detourr</code></p>
 </div></div>
 </section>
 <section id="putting-it-all-together" class="slide level2 center">
@@ -586,6 +595,23 @@ document.querySelector("div[data-fig-label='nn_fit_holder'] img").style = "width
 </div>
 </div>
 </div>
+<!-- ### For funsies, -->
+<!---->
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- ggplot( -->
+<!--   data = spreads |> -->
+<!--     filter(metric == "f1") |> -->
+<!--     mutate( -->
+<!--       metric = "F1 Score" -->
+<!--     ) -->
+<!-- ) + -->
+<!--   aes(y = val, x = seed, color = as.factor(neuron), tooltip = seed) + -->
+<!--   geom_point(size = 0.25) + -->
+<!--   facet_wrap(~metric) + -->
+<!--   theme_minimal() + -->
+<!--   labs(x = "Seed", y = "F1 Score", color = "Neuron") -->
+<!-- ``` -->
 </div>
 </div>
 </div>
@@ -601,7 +627,7 @@ document.querySelector("div[data-fig-label='nn_fit_holder'] img").style = "width
 <div class="fragment fade-in">
 <p>But why does the seed have an effect?</p>
 <ul>
-<li class="fragment">It can be due to primarily the initial weights used in the training, which has been discussed in the lottery ticket hypothesis Model Agnostic Meta Learning (MAML), and many more cases.</li>
+<li class="fragment">It can be due to primarily the initial weights used in the training, which has been discussed in Model Agnostic Meta Learning (MAML) and many more cases.</li>
 <li class="fragment">It can be due to shuffling in mini batches.</li>
 </ul>
 </div>
@@ -646,7 +672,7 @@ document.querySelector("div[data-fig-label='nn_fit_holder'] img").style = "width
 </section>
 <section id="introducing-the-blind-box-simulator" class="slide level2 center">
 <h2>Introducing The Blind Box Simulator</h2>
-<p>Visit <a href="http://random-nn-playground.janith.com">random-nn-playground.janith.com</a></p>
+<p>Visit <a href="http://random-nn-playground.janithwanni.com">random-nn-playground.janithwanni.com</a></p>
 </section>
 <section id="the-architecture-behind-the-app" class="slide level2">
 <h2>The architecture behind the app</h2>
