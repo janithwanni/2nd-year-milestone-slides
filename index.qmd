@@ -509,7 +509,7 @@ Try the package out from [https://github.com/janithwanni/kultarr](https:://githu
 </div>
 ```
 
-## Further updates to detourr 
+## Further updates to detourr {.smaller}
 
 :::: {.columns}
 ::: {.column}
@@ -521,14 +521,9 @@ Try the package out from [https://github.com/janithwanni/kultarr](https:://githu
 * Official support for
   * Clicking on points in the detourr widget now returns the identifier.
   * A proxy was created to communicate with an existing rendered detourr widget.
-    * Now supporting Shiny namespaces 
   * Added support for adding points and edges connecting new points.
   * Options to customize aesthetics of points and edges.
-  * Existing points can be highlighted or enlarged.
-* Multiple bug fixes were made 
 
-More documentation changes to be done in the future!
-Stay tuned at `casperhart/detourr`
 :::
 ::::
 
