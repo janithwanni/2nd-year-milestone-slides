@@ -499,8 +499,8 @@ Figure&nbsp;4: Geometric representation of Anchors in two dimensions
 <section>
 <section id="quick-refresher-on-how-neural-networks-work" class="title-slide slide level1 center">
 <h1>Quick refresher on how neural networks work</h1>
-
-<img data-src="https://playground.tensorflow.org/.png" class="r-stretch quarto-figure-center"><p class="caption">Playground</p></section>
+<p><a href="https://playground.tensorflow.org/">Playground</a></p>
+</section>
 <section id="all-right-for-our-dataset" class="slide level2 smaller">
 <h2>All right for our dataset,</h2>
 <div class="columns">
@@ -580,7 +580,7 @@ document.querySelector("div[data-fig-label='nn_fit_holder'] img").style = "width
 </div>
 </div>
 <div id="tabset-1-3">
-<div style="width: 60vw">
+<div style="width: 55vw">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -618,7 +618,7 @@ document.querySelector("div[data-fig-label='nn_fit_holder'] img").style = "width
 </section>
 <section id="smaller-models-for-small-datasets" class="slide level2">
 <h2>Smaller models for small datasets</h2>
-<p>I could have chucked a 20 neuron two hidden layer neural network with 500 epochs,</p>
+<p>I could have chucked a 20 neuron two hidden layer neural network and trained it for 1000 epochs,</p>
 <div class="fragment fade-in">
 <p>But for this dataset? Does this decision boundary demand a model with more parameters than there are bends in the decision boundary?</p>
 <div style="width: 40vw; margin: 0 auto; display: block">
@@ -728,55 +728,57 @@ document.querySelector("div[data-fig-label='nn_fit_holder'] img").style = "width
 </div>
 </div>
 </section>
-<section id="the-methodology-behind-the-app" class="slide level2">
-<h2>The methodology behind the app</h2>
-<div style="width: 80vw; margin: 0 auto; display: block">
+<section id="the-backend" class="slide level2">
+<h2>The backend</h2>
+<div style="width: 60vw; margin: 0 auto; display: block">
 <div class="cell" data-reveal="true" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart TB
-    A["Start: Input Decision Boundary Function f&lt;br/&gt;Seed Range [1, 99999]&lt;br/&gt; Neuron Sizes N"] --&gt; P1
-    
-    subgraph P1 ["Phase 1: Dataset Generation"]
-        direction LR
-        B[Set Consistent Seed for Reproducibility]
-        C["Generate 10,000 Samples&lt;br/&gt;Uniformly from [-10, 10] × [-10, 10]"]
-        
-        B --&gt; C
-    end
-    
-    P1 --&gt; P2
-    
-    subgraph P2 ["Phase 2: Parallel Training Process"]
-        direction LR
-        G[For Each Neuron Size n ∈ N]
+<pre class="mermaid mermaid-js">flowchart LR
+
+    A["Decision Boundary Function f
+    &lt;br/&gt;
+    Neuron Sizes N"] --&gt; C 
+
+    C["Generate 10,000 Samples
+    &lt;br/&gt;
+    Uniformly from [-10, 10] × [-10, 10] 
+    &lt;br/&gt;
+    using same seed"] --&gt; P2
+   
+    subgraph P2 ["Train"]
+        direction TB
+        G["For Each Neuron Size n ∈ N"]
         H["Select Random Seed s ∈ [1, 99999]"]
-        I["Initialize Neural Network:&lt;br/&gt;Input: 2, Hidden: n (ReLU), Output: 1 (Sigmoid)"]
-        J[Configure: Batch=71, Adam lr=0.01, BCE Loss]
+        I["Initialize Neural Network:
+        &lt;br/&gt;Input: 2,
+        &lt;br/&gt;Hidden: n (ReLU),
+        &lt;br/&gt;Output: 1 (Sigmoid)"]
+        J["Configure: 
+        &lt;br/&gt;Batch=71,&lt;br/&gt; Adam lr=0.01,&lt;br/&gt; BCE Loss"]
         
-        K[Training Loop: 500 Epochs]
-        L[Shuffle Data → Batch Processing]
-        M[Forward Pass → Loss → Backward Pass]
-         
+        K["Fit model for 100 training epochs"]  
+        O{More Seeds/Neurons?}
+        
         G --&gt; H --&gt; I --&gt; J --&gt; K
-        K --&gt; L --&gt; M
+        K --&gt; O
+        O --&gt;|Yes| H
     end
     
     P2 --&gt; P3
     
-    subgraph P3 ["Phase 3: Model Evaluation"]
-        direction LR
+    subgraph P3 ["Evaluate"]
+        direction TB
         P[For Each Trained Model M]
-        Q[Evaluate on Testing Dataset:&lt;br/&gt;• Compute Predictions&lt;br/&gt;• Calculate F1-Score &amp; Accuracy]
-        R[Create Decision Boundary:&lt;br/&gt;• Generate 100×100 Grid&lt;br/&gt;• Apply Model to Grid]
+        Q[Calculate F1-Score &amp; Accuracy on the testing dataset]
+        R[Apply Model to Grid of 100x100 points]
         T[Return: Models, Metrics, Boundaries]
         
         P --&gt; Q --&gt; R --&gt; T 
     end
     
-    P3 --&gt; U[End]
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -790,11 +792,12 @@ document.querySelector("div[data-fig-label='nn_fit_holder'] img").style = "width
 <h1>Attention is all you need, but did we need this much attention?</h1>
 
 </section>
-<section id="what-we-are-planning-on-doing" class="slide level2">
-<h2>What we are planning on doing?</h2>
+<section id="what-are-we-planning-on-doing" class="slide level2">
+<h2>What are we planning on doing?</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p>Using a simple toy transformer model trained to solve problems of the form <code>5 + 7 % 10 = ?</code>.</p>
+<p>Using a simple toy transformer model trained to solve problems of the form</p>
+<p><code>5 + 7 % 10 = ?</code>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="imgs/basic_schematic.png" style="width:80.0%"></p>

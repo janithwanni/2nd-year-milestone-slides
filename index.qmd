@@ -44,7 +44,7 @@ options(
   digits = 2,
   width = 60,
   ggplot2.discrete.fill = c("#E57F12", "#38535E"),
-  ggplot2.discrete.color = c("#E57F12", "#38535E")
+  ggplot2.discrete.colour = c("#E57F12", "#38535E")
 )
 
 theme_set(
@@ -96,8 +96,7 @@ two_dim_base_plot <- two_dim_sin |>
     nudge_y = -0.05,
     fontface = "bold",
     color = "black"
-  ) +
-  scale_color_discrete_divergingx(palette = "Zissou 1")
+  )
 ```
 
 ```{=html}
@@ -338,9 +337,6 @@ two_dim_base_plot +
     lineend = "round",
     linejoin = "bevel",
     show.legend = FALSE
-  ) +
-  scale_color_discrete_divergingx(
-    palette = "Zissou 1"
   )
 ```
 :::
@@ -383,9 +379,6 @@ two_dim_base_plot +
     shape = 9,
     size = 2.5,
     alpha = 1
-  ) +
-  scale_color_discrete_divergingx(
-    palette = "Zissou 1"
   )
 ```
 :::
@@ -450,9 +443,6 @@ two_dim_base_plot +
     fill = "transparent",
     linetype = "dashed",
     size = 0.75
-  ) +
-  scale_color_discrete_divergingx(
-    palette = "Zissou 1"
   )
 ```
 :::
@@ -616,7 +606,7 @@ ggplot(dataset, aes(x = x, y = y, color = factor(class))) +
 
 # Quick refresher on how neural networks work
 
-![Playground](https://playground.tensorflow.org/)
+[Playground](https://playground.tensorflow.org/)
 
 ## All right for our dataset, {.smaller} 
 
@@ -843,7 +833,7 @@ plot_nn_fit(a$four$combined, a$four$val) +
 
 ### Spread of model metrics
 
-:::{style = "width: 60vw"}
+:::{style = "width: 55vw"}
 ```{r}
 #| echo: false
 metric_files <- list.files(
@@ -868,9 +858,9 @@ ggplot(
         metric == "acc" ~ "Accuracy"
       )
     ),
-  aes(y = fct_rev(as.factor(neuron)), x = val, color = metric)
+  aes(y = fct_rev(as.factor(neuron)), x = val, color = metric, tooltip = seed)
 ) +
-  geom_quasirandom(size = 0.1) +
+  geom_quasirandom(size = 0.25) +
   facet_wrap(~metric) +
   theme_minimal() +
   labs(color = "Metric type", y = "Number of neurons", x = "Metric value")
@@ -902,7 +892,7 @@ But why does the seed have an effect?
 
 ## Smaller models for small datasets 
 
-I could have chucked a 20 neuron two hidden layer neural network with 500 epochs, 
+I could have chucked a 20 neuron two hidden layer neural network and trained it for 1000 epochs, 
 
 :::{.fragment .fade-in}
 
@@ -1020,63 +1010,66 @@ graph TB
     class Parquet data
 ```
 
+## The backend
 
-## The methodology behind the app
-
-:::{style = "width: 80vw; margin: 0 auto; display: block"}
+:::{style = "width: 60vw; margin: 0 auto; display: block"}
 ```{mermaid}
-flowchart TB
-    A["Start: Input Decision Boundary Function f<br/>Seed Range [1, 99999]<br/> Neuron Sizes N"] --> P1
-    
-    subgraph P1 ["Phase 1: Dataset Generation"]
-        direction LR
-        B[Set Consistent Seed for Reproducibility]
-        C["Generate 10,000 Samples<br/>Uniformly from [-10, 10] × [-10, 10]"]
-        
-        B --> C
-    end
-    
-    P1 --> P2
-    
-    subgraph P2 ["Phase 2: Parallel Training Process"]
-        direction LR
-        G[For Each Neuron Size n ∈ N]
+flowchart LR
+
+    A["Decision Boundary Function f
+    <br/>
+    Neuron Sizes N"] --> C 
+
+    C["Generate 10,000 Samples
+    <br/>
+    Uniformly from [-10, 10] × [-10, 10] 
+    <br/>
+    using same seed"] --> P2
+   
+    subgraph P2 ["Train"]
+        direction TB
+        G["For Each Neuron Size n ∈ N"]
         H["Select Random Seed s ∈ [1, 99999]"]
-        I["Initialize Neural Network:<br/>Input: 2, Hidden: n (ReLU), Output: 1 (Sigmoid)"]
-        J[Configure: Batch=71, Adam lr=0.01, BCE Loss]
+        I["Initialize Neural Network:
+        <br/>Input: 2,
+        <br/>Hidden: n (ReLU),
+        <br/>Output: 1 (Sigmoid)"]
+        J["Configure: 
+        <br/>Batch=71,<br/> Adam lr=0.01,<br/> BCE Loss"]
         
-        K[Training Loop: 500 Epochs]
-        L[Shuffle Data → Batch Processing]
-        M[Forward Pass → Loss → Backward Pass]
-         
+        K["Fit model for 100 training epochs"]  
+        O{More Seeds/Neurons?}
+        
         G --> H --> I --> J --> K
-        K --> L --> M
+        K --> O
+        O -->|Yes| H
     end
     
     P2 --> P3
     
-    subgraph P3 ["Phase 3: Model Evaluation"]
-        direction LR
+    subgraph P3 ["Evaluate"]
+        direction TB
         P[For Each Trained Model M]
-        Q[Evaluate on Testing Dataset:<br/>• Compute Predictions<br/>• Calculate F1-Score & Accuracy]
-        R[Create Decision Boundary:<br/>• Generate 100×100 Grid<br/>• Apply Model to Grid]
+        Q[Calculate F1-Score & Accuracy on the testing dataset]
+        R[Apply Model to Grid of 100x100 points]
         T[Return: Models, Metrics, Boundaries]
         
         P --> Q --> R --> T 
     end
     
-    P3 --> U[End]
 ```
 :::
 
 # Attention is all you need, but did we need this much attention? {.smaller}
 
-## What we are planning on doing?
+## What are we planning on doing?
 
 ::::{.columns}
 :::{.column width=50%}
 
-Using a simple toy transformer model trained to solve problems of the form `5 + 7 % 10 = ?`.
+Using a simple toy transformer model trained to solve problems of the form 
+
+`5 + 7 % 10 = ?`.
 
 ![Toy Transformer Models](imgs/basic_schematic.png){width=80%}
 :::
